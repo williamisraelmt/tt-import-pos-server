@@ -33,7 +33,7 @@
                                     <div class="col-12 text-center">
                                         <img src="/images/TTI1.jpg" style="width: 170px;">
                                         <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
-                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
+                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-2">
                                             C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
                                             809-966-6448<br>
                                             toribiotejadaimport@gmail.com<br>
@@ -45,9 +45,6 @@
                             font-size: 1rem;
                             line-height: 1.3rem;
                             font-weight: 500;
-                            padding: 1rem;
-                            border: 1px solid #e2e3e6;
-                            border-radius: 3px;
                         ">
                                         <div class="row">
                                             <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
@@ -88,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row">
                                     <div class="col-6 text-center">
                                         _________________________________________<br>
                                         <b>Entregado por</b>
@@ -108,7 +105,7 @@
                                     <div class="col-12 text-center">
                                         <img src="/images/TTI1.jpg" style="width: 170px;">
                                         <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
-                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
+                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-2">
                                             C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
                                             809-966-6448<br>
                                             toribiotejadaimport@gmail.com<br>
@@ -120,9 +117,6 @@
                             font-size: 1rem;
                             line-height: 1.3rem;
                             font-weight: 500;
-                            padding: 1rem;
-                            border: 1px solid #e2e3e6;
-                            border-radius: 3px;
                         ">
                                         <div class="row">
                                             <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
@@ -163,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row">
                                     <div class="col-6 text-center">
                                         _________________________________________<br>
                                         <b>Entregado por</b>
