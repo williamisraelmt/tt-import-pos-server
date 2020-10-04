@@ -205,6 +205,7 @@
                 axios
                     .post(SYNC_ENDPOINT, {})
                     .then(response => {
+                        this.getCustomers();
                         this.$confirm(
                             {
                                 title: 'Información',
