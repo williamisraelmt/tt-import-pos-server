@@ -41,99 +41,7 @@
                                         </address>
                                         <h2 class="font-weight-bold">CONDUCE DE BULTOS</h2>
                                     </div>
-                                    <div class="col-12 mb-3" style="
-                            font-size: 1rem;
-                            line-height: 1.3rem;
-                            font-weight: 500;
-                            padding: 1rem;
-                            border: 1px solid #e2e3e6;
-                            border-radius: 3px;
-                        ">
-                                        <div class="row">
-                                            <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
-                                            <div class="col-7">
-                                                <table class="table table-sm table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width: 100px">Cliente:</td>
-                                                            <td>{{{ $lead['customer']['parsed_address'][0] ?? '' }}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Dirección:</td>
-                                                            <td>{{{ $lead['customer']['parsed_address'][1] ?? '' }}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Ciudad:</td>
-                                                            <td>{{{ $lead['customer']['parsed_address'][3] ?? '' }}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Teléfono:</td>
-                                                            <td>{{ $lead['customer']['parsed_address'][2] ?? '' }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-5 text-center">
-                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> Bulto[s].</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 p-0">
-                                        <div style="
-                            border: 1px solid #e2e3e6;
-                            border-radius: 3px;">
-                                            <div class="table-responsive">
-                                                <table class="table table-sm table-striped  table-vcenter card-table"
-                                                       style="font-size: 1rem;">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Factura</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach ($lead['delivery_lead_details'] as $delivery_lead_detail)
-                                                    <tr>
-                                                        <td class="font-weight-bold">{{{ $delivery_lead_detail['invoice']['display_name'] }}}</td>
-                                                    </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <div class="col-6 text-center">
-                                        _________________________________________<br>
-                                        <b>Entregado por</b>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        _________________________________________<br>
-                                        <b>Recibido por</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card" style="margin-top: 10rem;">
-                            <div class="card-body" style="color: #1d1d1d">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <img src="/images/TTI1.jpg" style="width: 170px;">
-                                        <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
-                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
-                                            C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
-                                            809-966-6448<br>
-                                            toribiotejadaimport@gmail.com<br>
-                                            RNC: 131894879
-                                        </address>
-                                        <h2 class="font-weight-bold">CONDUCE DE BULTOS</h2>
-                                    </div>
-                                    <div class="col-12 mb-3" style="
+                                    <div class="col-12" style="
                             font-size: 1rem;
                             line-height: 1.3rem;
                             font-weight: 500;
@@ -162,6 +70,15 @@
                                                         <td>Teléfono:</td>
                                                         <td>{{ $lead['customer']['parsed_address'][2] ?? '' }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Facturas:</td>
+                                                        <td>@foreach ($lead['delivery_lead_details'] as $key => $delivery_lead_detail)
+                                                                <a href="javascript:void(0)" class="text-danger">{{{ $delivery_lead_detail['invoice']['display_name'] }}}</a>
+                                                                @if ($key+1 !== sizeof($lead['delivery_lead_details']))
+                                                                    ,
+                                                                @endif
+                                                            @endforeach</td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -171,33 +88,82 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mt-3">
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Entregado por</b>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Recibido por</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card" >
+                            <div class="card-body" style="color: #1d1d1d">
                                 <div class="row">
-                                    <div class="col-12 p-0">
-                                        <div style="
+                                    <div class="col-12 text-center">
+                                        <img src="/images/TTI1.jpg" style="width: 170px;">
+                                        <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
+                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
+                                            C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
+                                            809-966-6448<br>
+                                            toribiotejadaimport@gmail.com<br>
+                                            RNC: 131894879
+                                        </address>
+                                        <h2 class="font-weight-bold">CONDUCE DE BULTOS</h2>
+                                    </div>
+                                    <div class="col-12" style="
+                            font-size: 1rem;
+                            line-height: 1.3rem;
+                            font-weight: 500;
+                            padding: 1rem;
                             border: 1px solid #e2e3e6;
-                            border-radius: 3px;">
-                                            <div class="table-responsive">
-                                                <table class="table table-sm table-striped  table-vcenter card-table"
-                                                       style="font-size: 1rem;">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Factura</th>
-                                                    </tr>
-                                                    </thead>
+                            border-radius: 3px;
+                        ">
+                                        <div class="row">
+                                            <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
+                                            <div class="col-7">
+                                                <table class="table table-sm table-borderless">
                                                     <tbody>
-                                                    @foreach ($lead['delivery_lead_details'] as $delivery_lead_detail)
-                                                        <tr>
-                                                            <td class="font-weight-bold">{{{ $delivery_lead_detail['invoice']['display_name'] }}}</td>
-                                                        </tr>
-                                                    @endforeach
+                                                    <tr>
+                                                        <td style="width: 100px">Cliente:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][0] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dirección:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][1] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ciudad:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][3] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Teléfono:</td>
+                                                        <td>{{ $lead['customer']['parsed_address'][2] ?? '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Facturas:</td>
+                                                        <td>@foreach ($lead['delivery_lead_details'] as $key => $delivery_lead_detail)
+                                                                <a href="javascript:void(0)" class="text-danger">{{{ $delivery_lead_detail['invoice']['display_name'] }}}</a>
+                                                                @if ($key+1 !== sizeof($lead['delivery_lead_details']))
+                                                                    ,
+                                                                @endif
+                                                            @endforeach</td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-
+                                            <div class="col-5 text-center">
+                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> Bulto[s].</h1>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-5">
+                                <div class="row mt-3">
                                     <div class="col-6 text-center">
                                         _________________________________________<br>
                                         <b>Entregado por</b>
