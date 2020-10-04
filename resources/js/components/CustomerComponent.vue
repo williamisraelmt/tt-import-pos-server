@@ -166,7 +166,8 @@
                     selectedCustomers: this.selectedCustomers
                 }, {
                     width: '60%',
-                    height: 'auto'
+                    height: 'auto',
+                    clickToClose: false
                 })
             },
             removeSelectedCustomer: function (index) {

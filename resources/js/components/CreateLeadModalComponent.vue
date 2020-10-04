@@ -60,11 +60,14 @@
                     </a>
                 </td>
             </tr>
-            <tr v-for="(selectedCustomer, index) in selectedCustomers">
+            <tr v-for="(selectedCustomer, index) in selectedCustomersLocal">
                 <td class="text-center" style="vertical-align: middle">{{selectedCustomer.id}}</td>
                 <td style="font-weight: 500; vertical-align: middle">{{selectedCustomer.name}}</td>
                 <td>
-                    <invoice-select-component @invoice-changed="changeInvoice(index, $event)"
+                    <invoice-select-component
+                        :key="selectedCustomer.id"
+                        :defaultInvoices="selectedCustomer.invoices"
+                                              v-on:invoice-changed="selectedCustomer.invoices = $event"
                                               :customerId="selectedCustomer.id"></invoice-select-component>
                 </td>
                 <td>
@@ -89,9 +92,9 @@
         </table>
         <div class="modal-footer">
             <div class="ml-auto">
-                <button type="button" data-dismiss="modal" class="btn btn-white mr-auto">Cerrar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-white mr-auto" @click="$emit('close')">Cerrar</button>
                 <button type="button" data-dismiss="modal" class="btn btn-primary"
-                        v-bind:disabled="!this.selectedCustomers.length" @click="createLeads">Guardar e Imprimir
+                        v-bind:disabled="!this.selectedCustomersLocal.length" @click="createLeads">Guardar e Imprimir
                 </button>
             </div>
         </div>
@@ -102,7 +105,7 @@
 
     import {CONSTS} from '../consts';
     import {Customer} from '../models/customer';
-    import {debounce} from 'lodash';
+    import {debounce, cloneDeep} from 'lodash';
 
     const ENDPOINT = CONSTS.HOST + 'customer/list';
     const SAVE_ENDPOINT = CONSTS.HOST + 'delivery-lead';
@@ -118,17 +121,19 @@
                 errored: false,
                 saving: false,
                 erroredSaving: false,
+                selectedCustomersLocal: []
             }
         },
         watch: {
-            selectedCustomers: {
-                handler: function (selectedCustomers) {
-                    console.log(selectedCustomers);
+            selectedCustomersLocal: {
+                handler: function (selectedCustomersLocal) {
+                    console.log(selectedCustomersLocal);
                 },
                 deep: true
             }
         },
         mounted() {
+            this.selectedCustomersLocal = cloneDeep(this.selectedCustomers);
             this.asyncFind("");
         },
         methods: {
@@ -145,39 +150,39 @@
                     })
                     .finally(() => this.loading = false)
             }, 300),
-            changeInvoice: function (index, $event) {
-                this.selectedCustomers[index]['invoices'] = $event.map(e => ({id: e.id, value: e.value}));
-            },
+            // changeInvoice: function (index, $event) {
+            //     this.selectedCustomersLocal[index]['invoices'] = $event.map(e => ({id: e.id, value: e.value}));
+            // },
             removeCustomer: function (index) {
-                this.selectedCustomers.splice(index, 1);
+                this.selectedCustomersLocal = this.selectedCustomersLocal.filter((_, i) => i !== index);
             },
             addCustomer: function () {
                 if (this.customer === null || this.customer.id === null) {
                     return;
                 }
-                if (this.selectedCustomers.some(selectedCustomer => selectedCustomer.id === this.customer.id)) {
+                if (this.selectedCustomersLocal.some(selectedCustomer => selectedCustomer.id === this.customer.id)) {
                     return;
                 }
-                this.selectedCustomers.push(new Customer(this.customer.id, this.customer.name));
+                this.selectedCustomersLocal.push(new Customer(this.customer.id, this.customer.name));
                 this.customer = null;
             },
             createLeads: function () {
                 this.saving = true;
                 this.erroredSaving = false;
-                if (!this.selectedCustomers.length) {
+                if (!this.selectedCustomersLocal.length) {
                     this.erroredSaving = true;
                     return;
                 }
-                if (this.selectedCustomers.some(selectedCustomer => !selectedCustomer.invoices || !selectedCustomer.invoices.length)) {
+                if (this.selectedCustomersLocal.some(selectedCustomer => !selectedCustomer.invoices || !selectedCustomer.invoices.length)) {
                     this.erroredSaving = true;
                     return;
                 }
-                if (this.selectedCustomers.some(selectedCustomer => !selectedCustomer.packageQuantity || selectedCustomer.packageQuantity < 1)) {
+                if (this.selectedCustomersLocal.some(selectedCustomer => !selectedCustomer.packageQuantity || selectedCustomer.packageQuantity < 1)) {
                     this.erroredSaving = true;
                     return;
                 }
                 axios
-                    .post(SAVE_ENDPOINT, {leads: this.selectedCustomers})
+                    .post(SAVE_ENDPOINT, {leads: this.selectedCustomersLocal})
                     .then(response => {
                         const leadIds = response.data.data;
                         let queryString = '';

@@ -16,38 +16,12 @@
                                 <button class="btn btn-primary ml-1"  @click="createLeads()">Crear conduces</button>
                             </div>
                         </div>
-                        <div class="row row-sm">
-                            <div class="col mb-3">
-                                <label class="form-label">Conduces seleccionados:</label>
-                                <div class="selectize-control form-select multi plugin-remove_button">
-                                    <div class="selectize-input form-control items not-full has-options has-items mt-1"
-                                         style="box-shadow: none; border: 1px solid #e2e3e6">
-                                        <span v-if="!selectedDeliveryLeads.length">No hay conduces seleccionados.</span>
-                                        <div class="item"
-                                             v-for="(selectedDeliveryLead, index) in selectedDeliveryLeads">
-                                            {{selectedDeliveryLead.id}}
-                                            <a href="javascript:void(0)" @click="removeSelectedDeliveryLead(index)"
-                                               class="remove" tabindex="-1"
-                                               title="Remove">×</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table card-table table-vcenter text-nowrap datatable">
                             <thead>
                             <tr>
-                                <th class="w-1"></th>
-                                <th class="w-1">Id
-<!--                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick"-->
-<!--                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2"-->
-<!--                                         stroke="currentColor" fill="none" stroke-linecap="round"-->
-<!--                                         stroke-linejoin="round">-->
-<!--                                        <path stroke="none" d="M0 0h24v24H0z"></path>-->
-<!--                                        <polyline points="6 15 12 9 18 15"></polyline>-->
-<!--                                    </svg>-->
-                                </th>
+                                <th class="w-1">Id</th>
                                 <th>Cliente</th>
                                 <th>Facturas</th>
                                 <th>Bultos</th>
@@ -57,11 +31,6 @@
                             </thead>
                             <tbody>
                             <tr v-if="!loading" v-for="(deliveryLead,index) in deliveryLeads">
-                                <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                           v-bind:value="deliveryLead"
-                                           v-model="selectedDeliveryLeads"
-                                           aria-label="Seleccionar">
-                                </td>
                                 <td>
                                     <span class="text-muted">{{deliveryLead.id}}</span>
                                 </td>

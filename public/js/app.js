@@ -2012,6 +2012,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2027,18 +2030,20 @@ var SAVE_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'deliv
       loading: false,
       errored: false,
       saving: false,
-      erroredSaving: false
+      erroredSaving: false,
+      selectedCustomersLocal: []
     };
   },
   watch: {
-    selectedCustomers: {
-      handler: function handler(selectedCustomers) {
-        console.log(selectedCustomers);
+    selectedCustomersLocal: {
+      handler: function handler(selectedCustomersLocal) {
+        console.log(selectedCustomersLocal);
       },
       deep: true
     }
   },
   mounted: function mounted() {
+    this.selectedCustomersLocal = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["cloneDeep"])(this.selectedCustomers);
     this.asyncFind("");
   },
   methods: {
@@ -2055,16 +2060,13 @@ var SAVE_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'deliv
         return _this.loading = false;
       });
     }, 300),
-    changeInvoice: function changeInvoice(index, $event) {
-      this.selectedCustomers[index]['invoices'] = $event.map(function (e) {
-        return {
-          id: e.id,
-          value: e.value
-        };
-      });
-    },
+    // changeInvoice: function (index, $event) {
+    //     this.selectedCustomersLocal[index]['invoices'] = $event.map(e => ({id: e.id, value: e.value}));
+    // },
     removeCustomer: function removeCustomer(index) {
-      this.selectedCustomers.splice(index, 1);
+      this.selectedCustomersLocal = this.selectedCustomersLocal.filter(function (_, i) {
+        return i !== index;
+      });
     },
     addCustomer: function addCustomer() {
       var _this2 = this;
@@ -2073,13 +2075,13 @@ var SAVE_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'deliv
         return;
       }
 
-      if (this.selectedCustomers.some(function (selectedCustomer) {
+      if (this.selectedCustomersLocal.some(function (selectedCustomer) {
         return selectedCustomer.id === _this2.customer.id;
       })) {
         return;
       }
 
-      this.selectedCustomers.push(new _models_customer__WEBPACK_IMPORTED_MODULE_1__["Customer"](this.customer.id, this.customer.name));
+      this.selectedCustomersLocal.push(new _models_customer__WEBPACK_IMPORTED_MODULE_1__["Customer"](this.customer.id, this.customer.name));
       this.customer = null;
     },
     createLeads: function createLeads() {
@@ -2088,19 +2090,19 @@ var SAVE_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'deliv
       this.saving = true;
       this.erroredSaving = false;
 
-      if (!this.selectedCustomers.length) {
+      if (!this.selectedCustomersLocal.length) {
         this.erroredSaving = true;
         return;
       }
 
-      if (this.selectedCustomers.some(function (selectedCustomer) {
+      if (this.selectedCustomersLocal.some(function (selectedCustomer) {
         return !selectedCustomer.invoices || !selectedCustomer.invoices.length;
       })) {
         this.erroredSaving = true;
         return;
       }
 
-      if (this.selectedCustomers.some(function (selectedCustomer) {
+      if (this.selectedCustomersLocal.some(function (selectedCustomer) {
         return !selectedCustomer.packageQuantity || selectedCustomer.packageQuantity < 1;
       })) {
         this.erroredSaving = true;
@@ -2108,7 +2110,7 @@ var SAVE_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'deliv
       }
 
       axios.post(SAVE_ENDPOINT, {
-        leads: this.selectedCustomers
+        leads: this.selectedCustomersLocal
       }).then(function (response) {
         var leadIds = response.data.data;
         var queryString = '';
@@ -2309,7 +2311,8 @@ var SYNC_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_1__["CONSTS"].HOST + 'sync'
         selectedCustomers: this.selectedCustomers
       }, {
         width: '60%',
-        height: 'auto'
+        height: 'auto',
+        clickToClose: false
       });
     },
     removeSelectedCustomer: function removeSelectedCustomer(index) {
@@ -2384,37 +2387,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_grid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/grid */ "./resources/js/models/grid.js");
 /* harmony import */ var _models_delivery_lead__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/delivery-lead */ "./resources/js/models/delivery-lead.js");
 /* harmony import */ var _CreateLeadModalComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateLeadModalComponent */ "./resources/js/components/CreateLeadModalComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2809,22 +2781,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'customer/invoices';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'InvoiceSelectComponent',
-  props: ['customerId'],
+  props: ['customerId', 'defaultInvoices'],
   mounted: function mounted() {
+    this.selectedInvoices = this.defaultInvoices;
     this.asyncFind("");
   },
   data: function data() {
     return {
       selectedInvoices: [],
-      invoices: [],
+      list: [],
       loading: true,
       errored: false
     };
+  },
+  watch: {
+    selectedInvoices: function selectedInvoices(e) {
+      this.$emit('invoice-changed', e);
+    }
   },
   methods: {
     asyncFind: function asyncFind(query) {
@@ -2832,7 +2812,7 @@ var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'customer/i
 
       this.loading = true;
       axios.get(ENDPOINT + '/' + this.customerId + '?search=' + query).then(function (response) {
-        _this.invoices = response.data.data;
+        _this.list = response.data.data;
       })["catch"](function (error) {
         console.log(error);
         _this.errored = true;
@@ -2842,9 +2822,6 @@ var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'customer/i
     },
     clearAll: function clearAll() {
       this.selectedInvoices = [];
-    },
-    invoiceChanged: function invoiceChanged($event) {
-      this.$emit('invoice-changed', $event);
     }
   }
 });
@@ -39393,7 +39370,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._l(_vm.selectedCustomers, function(selectedCustomer, index) {
+          _vm._l(_vm.selectedCustomersLocal, function(selectedCustomer, index) {
             return _c("tr", [
               _c(
                 "td",
@@ -39419,10 +39396,14 @@ var render = function() {
                 "td",
                 [
                   _c("invoice-select-component", {
-                    attrs: { customerId: selectedCustomer.id },
+                    key: selectedCustomer.id,
+                    attrs: {
+                      defaultInvoices: selectedCustomer.invoices,
+                      customerId: selectedCustomer.id
+                    },
                     on: {
                       "invoice-changed": function($event) {
-                        return _vm.changeInvoice(index, $event)
+                        selectedCustomer.invoices = $event
                       }
                     }
                   })
@@ -39532,7 +39513,12 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-white mr-auto",
-            attrs: { type: "button", "data-dismiss": "modal" }
+            attrs: { type: "button", "data-dismiss": "modal" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("close")
+              }
+            }
           },
           [_vm._v("Cerrar")]
         ),
@@ -39544,7 +39530,7 @@ var render = function() {
             attrs: {
               type: "button",
               "data-dismiss": "modal",
-              disabled: !this.selectedCustomers.length
+              disabled: !this.selectedCustomersLocal.length
             },
             on: { click: _vm.createLeads }
           },
@@ -40074,75 +40060,6 @@ var render = function() {
                     [_vm._v("Crear conduces")]
                   )
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row row-sm" }, [
-                _c("div", { staticClass: "col mb-3" }, [
-                  _c("label", { staticClass: "form-label" }, [
-                    _vm._v("Conduces seleccionados:")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "selectize-control form-select multi plugin-remove_button"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "selectize-input form-control items not-full has-options has-items mt-1",
-                          staticStyle: {
-                            "box-shadow": "none",
-                            border: "1px solid #e2e3e6"
-                          }
-                        },
-                        [
-                          !_vm.selectedDeliveryLeads.length
-                            ? _c("span", [
-                                _vm._v("No hay conduces seleccionados.")
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm._l(_vm.selectedDeliveryLeads, function(
-                            selectedDeliveryLead,
-                            index
-                          ) {
-                            return _c("div", { staticClass: "item" }, [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(selectedDeliveryLead.id) +
-                                  "\n                                            "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "remove",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    tabindex: "-1",
-                                    title: "Remove"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.removeSelectedDeliveryLead(
-                                        index
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("×")]
-                              )
-                            ])
-                          })
-                        ],
-                        2
-                      )
-                    ]
-                  )
-                ])
               ])
             ]),
             _vm._v(" "),
@@ -40163,60 +40080,6 @@ var render = function() {
                         return !_vm.loading
                           ? _c("tr", [
                               _c("td", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.selectedDeliveryLeads,
-                                      expression: "selectedDeliveryLeads"
-                                    }
-                                  ],
-                                  staticClass:
-                                    "form-check-input m-0 align-middle",
-                                  attrs: {
-                                    type: "checkbox",
-                                    "aria-label": "Seleccionar"
-                                  },
-                                  domProps: {
-                                    value: deliveryLead,
-                                    checked: Array.isArray(
-                                      _vm.selectedDeliveryLeads
-                                    )
-                                      ? _vm._i(
-                                          _vm.selectedDeliveryLeads,
-                                          deliveryLead
-                                        ) > -1
-                                      : _vm.selectedDeliveryLeads
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      var $$a = _vm.selectedDeliveryLeads,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = deliveryLead,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            (_vm.selectedDeliveryLeads = $$a.concat(
-                                              [$$v]
-                                            ))
-                                        } else {
-                                          $$i > -1 &&
-                                            (_vm.selectedDeliveryLeads = $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1)))
-                                        }
-                                      } else {
-                                        _vm.selectedDeliveryLeads = $$c
-                                      }
-                                    }
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
                                 _c("span", { staticClass: "text-muted" }, [
                                   _vm._v(_vm._s(deliveryLead.id))
                                 ])
@@ -40224,33 +40087,33 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", { staticClass: "font-weight-bold" }, [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                " +
                                     _vm._s(deliveryLead.customerName) +
-                                    "\n                                "
+                                    "\n                            "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                " +
                                     _vm._s(deliveryLead.invoices) +
-                                    "\n                                "
+                                    "\n                            "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "font-weight-bold" }, [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                " +
                                     _vm._s(deliveryLead.packageQuantity) +
-                                    "\n                                "
+                                    "\n                            "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                " +
                                     _vm._s(deliveryLead.createdAt) +
-                                    "\n                                "
+                                    "\n                            "
                                 )
                               ]),
                               _vm._v(" "),
@@ -40291,7 +40154,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            Imprimir\n                                          "
+                                            "\n                                        Imprimir\n                                      "
                                           )
                                         ]
                                       ),
@@ -40311,7 +40174,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            Borrar\n                                          "
+                                            "\n                                        Borrar\n                                      "
                                           )
                                         ]
                                       )
@@ -40344,7 +40207,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "text-muted" }, [
                       _vm._v(
-                        "\n                            Ver\n                            "
+                        "\n                        Ver\n                        "
                       ),
                       _c("div", { staticClass: "mx-2 d-inline-block" }, [
                         _c("input", {
@@ -40370,7 +40233,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(
-                        "\n                            entradas\n                        "
+                        "\n                        entradas\n                    "
                       )
                     ]),
                     _vm._v(" "),
@@ -40416,9 +40279,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "w-1" }),
-        _vm._v(" "),
-        _c("th", { staticClass: "w-1" }, [_vm._v("Id\n")]),
+        _c("th", { staticClass: "w-1" }, [_vm._v("Id")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
@@ -40859,93 +40720,94 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "multiselect",
-    {
-      attrs: {
-        id: _vm.customerId,
-        label: "displayName",
-        "track-by": "id",
-        placeholder: "",
-        "open-direction": "bottom",
-        options: _vm.invoices,
-        multiple: true,
-        searchable: true,
-        loading: _vm.loading,
-        "internal-search": false,
-        "clear-on-select": false,
-        "close-on-select": false,
-        "options-limit": 300,
-        "max-height": 600,
-        "show-no-results": false,
-        "hide-selected": true
-      },
-      on: {
-        input: function($event) {
-          return _vm.invoiceChanged($event)
-        },
-        "search-change": _vm.asyncFind
-      },
-      scopedSlots: _vm._u([
-        {
-          key: "tag",
-          fn: function(ref) {
-            var option = ref.option
-            var remove = ref.remove
-            return [
-              _c("span", { staticClass: "multiselect__tag" }, [
-                _c("span", [
-                  _vm._v(
-                    " " + _vm._s(option.displayName) + "\n                "
-                  ),
-                  _c("i", {
-                    staticClass: "multiselect__tag-icon",
-                    attrs: { "aria-hidden": "true", tabindex: "1" },
-                    on: {
-                      click: function($event) {
-                        return remove(option)
-                      }
-                    }
-                  })
-                ])
-              ])
-            ]
-          }
-        },
-        {
-          key: "clear",
-          fn: function(props) {
-            return [
-              _vm.selectedInvoices.length
-                ? _c("div", {
-                    staticClass: "multiselect__clear",
-                    on: {
-                      mousedown: function($event) {
-                        $event.preventDefault()
-                        $event.stopPropagation()
-                        return _vm.clearAll(props.search)
-                      }
-                    }
-                  })
-                : _vm._e()
-            ]
-          }
-        }
-      ]),
-      model: {
-        value: _vm.selectedInvoices,
-        callback: function($$v) {
-          _vm.selectedInvoices = $$v
-        },
-        expression: "selectedInvoices"
-      }
-    },
+    "div",
     [
-      _vm._v(" "),
-      _vm._v(" "),
-      _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
-        _vm._v("Sin resultados.")
-      ])
-    ]
+      _c(
+        "multiselect",
+        {
+          attrs: {
+            id: _vm.customerId,
+            label: "displayName",
+            "track-by": "id",
+            placeholder: "",
+            "open-direction": "bottom",
+            options: _vm.list,
+            multiple: true,
+            searchable: true,
+            loading: _vm.loading,
+            "internal-search": false,
+            "clear-on-select": false,
+            "close-on-select": false,
+            "options-limit": 300,
+            "max-height": 600,
+            "show-no-results": false,
+            "hide-selected": true
+          },
+          on: { "search-change": _vm.asyncFind },
+          scopedSlots: _vm._u([
+            {
+              key: "tag",
+              fn: function(ref) {
+                var option = ref.option
+                var remove = ref.remove
+                return [
+                  _c("span", { staticClass: "multiselect__tag" }, [
+                    _c("span", [
+                      _vm._v(
+                        " " + _vm._s(option.displayName) + "\n                "
+                      ),
+                      _c("i", {
+                        staticClass: "multiselect__tag-icon",
+                        attrs: { "aria-hidden": "true", tabindex: "1" },
+                        on: {
+                          click: function($event) {
+                            return remove(option)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]
+              }
+            },
+            {
+              key: "clear",
+              fn: function(props) {
+                return [
+                  _vm.selectedInvoices
+                    ? _c("div", {
+                        staticClass: "multiselect__clear",
+                        on: {
+                          mousedown: function($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.clearAll(props.search)
+                          }
+                        }
+                      })
+                    : _vm._e()
+                ]
+              }
+            }
+          ]),
+          model: {
+            value: _vm.selectedInvoices,
+            callback: function($$v) {
+              _vm.selectedInvoices = $$v
+            },
+            expression: "selectedInvoices"
+          }
+        },
+        [
+          _vm._v(" "),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
+            _vm._v("Sin resultados.")
+          ])
+        ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -53634,6 +53496,7 @@ var Customer = // id;
 function Customer(id, name) {
   var address = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var phone = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+  var invoices = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
 
   _classCallCheck(this, Customer);
 
@@ -53641,6 +53504,7 @@ function Customer(id, name) {
   this.name = name;
   this.address = address;
   this.phone = phone;
+  this.invoices = invoices;
 };
 
 /***/ }),
