@@ -48,6 +48,10 @@ class Customer extends Model
 
     public function getParsedAddressAttribute($value)
     {
-        return explode("\n", $this->address) ;
+        $address = explode("\n", $this->address);
+        if (sizeof($address) < 5){
+            array_unshift($address, $this->name);
+        }
+        return $address;
     }
 }

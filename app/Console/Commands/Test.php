@@ -40,23 +40,23 @@ class Test extends Command
      */
     public function handle()
     {
-        $odoo = new \Edujugon\Laradoo\Odoo();
-        $connection = $odoo
-            ->username('williamtoribio@gmail.com')
-            ->password('WT@ribi@2019!')
-            ->db('toribiotejadaimport')
-            ->host('https://toribiotejadaimport.odoo.com')
-            ->connect();
-        dd($connection
-            ->where('customer', '=', true)
-            ->where('active', '=', true)
-            ->fields([
-                'name',
-                'contact_address',
-                'phone'
-            ])
-            ->limit(1)
-            ->get('res.partner'));
+//        $odoo = new \Edujugon\Laradoo\Odoo();
+//        $connection = $odoo
+//            ->username('williamtoribio@gmail.com')
+//            ->password('WT@ribi@2019!')
+//            ->db('toribiotejadaimport')
+//            ->host('https://toribiotejadaimport.odoo.com')
+//            ->connect();
+//        dd($connection
+//            ->where('customer', '=', true)
+//            ->where('active', '=', true)
+//            ->fields([
+//                'name',
+//                'contact_address',
+//                'phone'
+//            ])
+//            ->limit(1)
+//            ->get('res.partner'));
 
     }
 }
