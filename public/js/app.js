@@ -2338,6 +2338,8 @@ var SYNC_ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_1__["CONSTS"].HOST + 'sync'
 
       this.syncing = true;
       axios.post(SYNC_ENDPOINT, {}).then(function (response) {
+        _this2.getCustomers();
+
         _this2.$confirm({
           title: 'Información',
           message: 'La sincronización ha finalizado!',
