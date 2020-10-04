@@ -31,12 +31,15 @@
                             <div class="card-body" style="color: #1d1d1d">
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <p class="h1">Toribio Tejada Import</p>
-                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem">
+                                        <img src="/images/TTI1.jpg" style="width: 170px;">
+                                        <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
+                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
                                             C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
                                             809-966-6448<br>
-                                            toribiotejadaimport@gmail.com
+                                            toribiotejadaimport@gmail.com<br>
+                                            RNC: 131894879
                                         </address>
+                                        <h2 class="font-weight-bold">CONDUCE DE BULTOS</h2>
                                     </div>
                                     <div class="col-12 mb-3" style="
                             font-size: 1rem;
@@ -47,14 +50,31 @@
                             border-radius: 3px;
                         ">
                                         <div class="row">
-                                            <div class="col-6">
-                                                Cliente: {{{ $lead['customer']['parsed_address'][0] ?? '' }}}<br>
-                                                Dirección: {{{ $lead['customer']['parsed_address'][1] ?? '' }}}<br>
-                                                Provincia/Ciudad: {{{ $lead['customer']['parsed_address'][3] ?? '' }}}<br>
-                                                Teléfono: {{ $lead['customer']['parsed_address'][2] ?? '' }}
+                                            <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
+                                            <div class="col-7">
+                                                <table class="table table-sm table-borderless">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width: 100px">Cliente:</td>
+                                                            <td>{{{ $lead['customer']['parsed_address'][0] ?? '' }}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Dirección:</td>
+                                                            <td>{{{ $lead['customer']['parsed_address'][1] ?? '' }}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ciudad:</td>
+                                                            <td>{{{ $lead['customer']['parsed_address'][3] ?? '' }}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Teléfono:</td>
+                                                            <td>{{ $lead['customer']['parsed_address'][2] ?? '' }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-6 text-center">
-                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> bulto[s].</h1>
+                                            <div class="col-5 text-center">
+                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> Bulto[s].</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -85,20 +105,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mt-5">
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Entregado por</b>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Recibido por</b>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card" style="margin-top: 10rem;">
                             <div class="card-body" style="color: #1d1d1d">
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <p class="h1">Toribio Tejada Import</p>
-                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem">
+                                        <img src="/images/TTI1.jpg" style="width: 170px;">
+                                        <p class="my-1" style="font-size: 12px; font-weight: 400">Partes para generadores eléctricos y motores estacionarios<br></p>
+                                        <address style="font-size: .8rem;font-weight: 500; line-height: .9rem" class="mb-4">
                                             C/ Simón Hdez, Edificio Anacaona Apt. B4, Santiago de los Caballeros.<br>
                                             809-966-6448<br>
-                                            toribiotejadaimport@gmail.com
+                                            toribiotejadaimport@gmail.com<br>
+                                            RNC: 131894879
                                         </address>
+                                        <h2 class="font-weight-bold">CONDUCE DE BULTOS</h2>
                                     </div>
                                     <div class="col-12 mb-3" style="
                             font-size: 1rem;
@@ -109,14 +142,31 @@
                             border-radius: 3px;
                         ">
                                         <div class="row">
-                                            <div class="col-6">
-                                                Cliente: {{{ $lead['customer']['parsed_address'][0] ?? '' }}}<br>
-                                                Dirección: {{{ $lead['customer']['parsed_address'][1] ?? '' }}}<br>
-                                                Provincia/Ciudad: {{{ $lead['customer']['parsed_address'][3] ?? '' }}}<br>
-                                                Teléfono: {{ $lead['customer']['parsed_address'][2] ?? '' }}
+                                            <div class="col-12 text-right">{{$lead['parsed_created_at']}}</div>
+                                            <div class="col-7">
+                                                <table class="table table-sm table-borderless">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 100px">Cliente:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][0] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dirección:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][1] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ciudad:</td>
+                                                        <td>{{{ $lead['customer']['parsed_address'][3] ?? '' }}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Teléfono:</td>
+                                                        <td>{{ $lead['customer']['parsed_address'][2] ?? '' }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-6 text-center">
-                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> bulto[s].</h1>
+                                            <div class="col-5 text-center">
+                                                <h1 class="mt-4"><b>{{{ $lead['package_quantity'] }}}</b> Bulto[s].</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -145,6 +195,16 @@
                                             </div>
 
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Entregado por</b>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        _________________________________________<br>
+                                        <b>Recibido por</b>
                                     </div>
                                 </div>
                             </div>

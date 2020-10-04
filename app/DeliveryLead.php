@@ -26,7 +26,14 @@ class DeliveryLead extends Model
         return $this->hasMany(DeliveryLeadDetail::class);
     }
 
+    protected $appends = ['parsed_created_at'];
+
     public function customer(){
         return $this->belongsTo(Customer::class);
+    }
+
+    public function getParsedCreatedAtAttribute($value)
+    {
+        return $this->created_at->format('d/m/Y');
     }
 }
