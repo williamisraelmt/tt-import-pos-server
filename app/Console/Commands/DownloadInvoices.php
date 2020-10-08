@@ -96,7 +96,7 @@ class DownloadInvoices extends Command
                     Invoice::insertOnDuplicateKey(
                         $records
                             ->filter(function (OdooInvoice $invoice) {
-                                $invoice->getName() !== "" && $invoice->getNumber() !== "" && $invoice->getDate() !== "";
+                                return $invoice->getNumber() !== "" && $invoice->getDate() !== "";
                             })
                             ->map(function (OdooInvoice $invoice) {
                                 return $invoice->toStoreAsArray();
