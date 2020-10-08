@@ -77,7 +77,7 @@ class DownloadInvoices extends Command
                     return new OdooInvoice(
                         $record["id"],
                         trim($record["name"]),
-                        trim( $record["create_date"]),
+                        trim($record["create_date"]),
                         trim($record["display_name"]),
                         trim($record["number"]),
                         trim($record["reference"]),
@@ -88,15 +88,19 @@ class DownloadInvoices extends Command
                         $record["amount_total"]
                     );
                 })
-                ->filter(function(OdooInvoice $invoice){
+                ->filter(function (OdooInvoice $invoice) {
                     return Customer::find($invoice->getPartnerId()) !== null;
                 })
                 ->chunk(1000)->each(function (Collection $records) {
                     $this->info("Inserting/updating list {$records->count()} records to the database...");
                     Invoice::insertOnDuplicateKey(
-                        $records->map(function (OdooInvoice $invoice) {
-                            return $invoice->toStoreAsArray();
-                        })->values()->toArray()
+                        $records
+                            ->filter(function (OdooInvoice $invoice) {
+                                $invoice->getName() !== "" && $invoice->getNumber() !== "" && $invoice->getDate() !== "";
+                            })
+                            ->map(function (OdooInvoice $invoice) {
+                                return $invoice->toStoreAsArray();
+                            })->values()->toArray()
                     );
                 });
         } catch (\Exception $e) {
