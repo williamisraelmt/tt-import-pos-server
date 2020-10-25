@@ -39,7 +39,7 @@
                                             toribiotejadaimport@gmail.com<br>
                                             RNC: 131894879
                                         </address>
-                                        <h2 style="border-bottom: 1px dashed rgba(110,117,130,0.4); border-top: 1px dashed rgba(110,117,130,0.4)" class="font-weight-bold">CONDUCE DE BULTOS</h2>
+                                        <h2 style="border-bottom: 1px solid rgba(110,117,130,1); border-top: 1px solid rgba(110,117,130,1)" class="font-weight-bold">CONDUCE DE BULTOS</h2>
                                     </div>
                                     <div class="col-12" style="
                             font-size: 1rem;
@@ -111,7 +111,7 @@
                                             toribiotejadaimport@gmail.com<br>
                                             RNC: 131894879
                                         </address>
-                                        <h2 class="font-weight-bold" style="border-bottom: 1px dashed rgba(110, 117, 130, 0.4);border-top: 1px dashed rgba(110, 117, 130, 0.4);">CONDUCE DE BULTOS</h2>
+                                        <h2 class="font-weight-bold" style="border-bottom: 1px solid rgba(110, 117, 130, 1);border-top: 1px solid rgba(110, 117, 130, 1);">CONDUCE DE BULTOS</h2>
                                     </div>
                                     <div class="col-12" style="
                             font-size: 1rem;
