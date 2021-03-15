@@ -1,8 +1,8 @@
 <?php
 
 return [
-    "user" => env("ODOO_USER", null),
-    "password" => env("ODOO_PASS", null),
-    "database" => env("ODOO_DATABASE", null),
-    "host" => env("ODOO_HOST", null),
+    "user" => env("ODOO_USER", ""),
+    "password" => env("ODOO_PASS", ""),
+    "database" => env("ODOO_DATABASE", ""),
+    "host" => env("ODOO_HOST", ""),
 ];
