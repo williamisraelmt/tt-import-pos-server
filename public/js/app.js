@@ -53472,7 +53472,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONSTS", function() { return CONSTS; });
 var CONSTS = {
-  HOST: 'http://localhost:8000/api/'
+  HOST: '/api/'
 };
 
 /***/ }),
@@ -53610,8 +53610,8 @@ var Grid = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\tt-import-pos-server\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\tt-import-pos-server\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
