@@ -53,7 +53,7 @@ class CustomerController extends Controller
             $customers->orderBy('name');
         }
         return response()->json([
-            "total" => $customers->count(),
+            "total" => DB::table('customers')->select('id')->count(),
             "data" => $customers->get()
         ]);
     }
@@ -85,7 +85,7 @@ class CustomerController extends Controller
             $customers->orderBy('name');
         }
         return response()->json([
-            "total" => DB::table('customers')->count(),
+            "total" => DB::table('customers')->select('id')->count(),
             "data" => $customers->get()
         ]);
     }
