@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'TT Import App',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

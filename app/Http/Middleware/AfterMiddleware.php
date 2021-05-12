@@ -10,12 +10,15 @@ namespace App\Http\Middleware;
 
 use App\Utils\CamelCaseUtil;
 use Closure;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AfterMiddleware
 {
     public function handle($request, Closure $next)
     {
+        /** @var StreamedResponse  $response */
         $response = $next($request);
+        if ($response && str_contains($response->headers->get('content-type'), "json"))
         // Perform action
         try {
             $response->setData(CamelCaseUtil::keysToCamelCase($response->getData()));

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Odoo;
+namespace App\Console\Commands\Models;
 
 
 use App\Invoice;
 
-class OdooInvoice
+class OdooInvoice implements IOdooModel
 {
     /* @var integer */
     private $id;
@@ -28,35 +28,39 @@ class OdooInvoice
     private $partnerId;
     /* @var string */
     private $date;
-    /* @var string */
+    /* @var int */
     private $amountTotal;
+    /* @var int */
+    private $residual;
 
     /**
      * InvoiceModel constructor.
-     * @param $id
-     * @param $name
-     * @param $createDate
-     * @param $displayName
-     * @param $number
-     * @param $reference
-     * @param $dateInvoice
-     * @param $dateDue
-     * @param $partnerId
-     * @param $date
-     * @param $amountTotal
+     * @param int $id
+     * @param string|null $name
+     * @param string|null $createDate
+     * @param string|null $displayName
+     * @param string|null $number
+     * @param string|null $reference
+     * @param string|null $dateInvoice
+     * @param string|null $dateDue
+     * @param string|null $partnerId
+     * @param string|null $date
+     * @param int|null $amountTotal
+     * @param int|null $residual
      */
     public function __construct(
         int $id,
-        string $name,
-        string $createDate,
-        string $displayName,
-        string $number,
-        string $reference,
-        string $dateInvoice,
-        string $dateDue,
-        string $partnerId,
-        string $date,
-        string $amountTotal
+        string $name = null,
+        string $createDate = null,
+        string $displayName = null,
+        string $number = null,
+        string $reference = null,
+        string $dateInvoice = null,
+        string $dateDue = null,
+        string $partnerId = null,
+        string $date = null,
+        int $amountTotal = null,
+        int $residual = null
     )
     {
         $this->id = $id;
@@ -70,6 +74,7 @@ class OdooInvoice
         $this->partnerId = $partnerId;
         $this->date = $date;
         $this->amountTotal = $amountTotal;
+        $this->residual = $residual;
     }
 
     /**
@@ -248,7 +253,24 @@ class OdooInvoice
         $this->amountTotal = $amountTotal;
     }
 
-    public function toStoreAsArray(){
+    /**
+     * @return int
+     */
+    public function getResidual(): int
+    {
+        return $this->residual;
+    }
+
+    /**
+     * @param int $residual
+     */
+    public function setResidual(int $residual): void
+    {
+        $this->residual = $residual;
+    }
+
+    public function toStoreAsArray(): array
+    {
         return [
             "id" => $this->id,
             "name" => $this->name,
@@ -261,6 +283,7 @@ class OdooInvoice
             "customer_id" => $this->partnerId,
             "date" => $this->date,
             "amount_total" => $this->amountTotal,
+            "residual" => $this->residual,
             "created_at" => Invoice::find($this->id)->created_at ?? now()->toDateTimeString(),
             "updated_at" => now()->toDateTimeString()
         ];

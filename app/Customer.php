@@ -38,6 +38,10 @@ class Customer extends Model
 
     protected $appends = ['parsed_address'];
 
+    public function debtCollector() {
+        return $this->belongsTo(DebtCollector::class);
+    }
+
     public function invoices(){
         return $this->hasMany(Invoice::class);
     }

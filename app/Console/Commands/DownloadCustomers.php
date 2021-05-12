@@ -7,6 +7,7 @@ use App\Console\Commands\Traits\OdooDownload;
 use App\Customer;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DownloadCustomers extends Command
@@ -68,6 +69,7 @@ class DownloadCustomers extends Command
         $this->info("Starting to download customers");
 
         try {
+            DB::beginTransaction();
             $this->download()
                 ->map(function ($record) {
                     return new OdooCustomer(
@@ -85,7 +87,9 @@ class DownloadCustomers extends Command
                         })->values()->toArray()
                     );
                 });
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->error($e->getMessage());
             $this->error($e->getTraceAsString());
             Log::error($e->getMessage());

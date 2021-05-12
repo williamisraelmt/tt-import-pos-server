@@ -14,6 +14,7 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
+
             $table->unsignedBigInteger('id')->primary();
 
             $table->string('name');
@@ -25,7 +26,9 @@ class CreateCustomersTable extends Migration
             $table->string('note')->nullable();
 
             $table->timestamps();
+
         });
+
     }
 
     /**

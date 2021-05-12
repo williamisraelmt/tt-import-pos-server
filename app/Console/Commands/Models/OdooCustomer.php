@@ -6,7 +6,7 @@ namespace App\Console\Commands\Models;
 
 use App\Customer;
 
-class OdooCustomer
+class OdooCustomer implements IOdooModel
 {
 
     private $id;
@@ -86,7 +86,8 @@ class OdooCustomer
         $this->phone = $phone;
     }
 
-    public function toStoreAsArray(){
+    public function toStoreAsArray(): array
+    {
         return [
             "id" => $this->id,
             "name" => $this->name,

@@ -1,40 +1,8 @@
-@import '~vue-multiselect/dist/vue-multiselect.min.css';
-@import '~tabler/scss/tabler';
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-.multiselect__tags {
-    @extend .form-control;
-    padding: 0px 40px 0 7px !important;
-}
+// Variables
+@import 'variables';
 
-.multiselect__tag-icon {
-    line-height: 19px;
-}
-
-.multiselect__tag {
-    border-radius: 3px !important;
-    margin-bottom: 0;
-    margin-top: .3rem;
-}
-
-.multiselect__placeholder {
-    margin-bottom: 0;
-    padding-top: 6px;
-}
-
-.multiselect__input {
-    margin-top: 0.5rem;
-}
-
-.multiselect__strong {
-    margin-top: .3rem;
-}
-
-.multiselect__single {
-    margin-top: .4rem;
-}
-
-@media print
-{
-    .page-break  { display:block; page-break-before:always; }
-
-}
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';

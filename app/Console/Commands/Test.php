@@ -3,8 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Customer;
+use App\DebtCollector;
+use App\Http\Controllers\Grid;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class Test extends Command
 {
@@ -40,23 +43,26 @@ class Test extends Command
      */
     public function handle()
     {
-//        $odoo = new \Edujugon\Laradoo\Odoo();
-//        $connection = $odoo
-//            ->username('williamtoribio@gmail.com')
-//            ->password('WT@ribi@2019!')
-//            ->db('toribiotejadaimport')
-//            ->host('https://toribiotejadaimport.odoo.com')
-//            ->connect();
-//        dd($connection
-//            ->where('customer', '=', true)
-//            ->where('active', '=', true)
+        $odoo = new \Edujugon\Laradoo\Odoo();
+        $connection = $odoo
+            ->username('williamtoribio@gmail.com')
+            ->password('WT@ribi@2019!')
+            ->db('toribiotejadaimport')
+            ->host('https://toribiotejadaimport.odoo.com')
+            ->connect();
+
+        dd($connection
+            ->limit(1)
 //            ->fields([
-//                'name',
-//                'contact_address',
-//                'phone'
+//                'id',
+//                'amount',
+//                'partner_id',
+//                'invoice_ids',
+//                'payment_date',
 //            ])
-//            ->limit(1)
-//            ->get('res.partner'));
+//            ->where('payment_type', '=', 'inbound')
+//            ->where('has_invoices', '=', true)
+            ->get('account.invoice'));
 
     }
 }

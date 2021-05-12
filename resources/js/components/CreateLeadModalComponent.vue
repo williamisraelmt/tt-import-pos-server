@@ -104,7 +104,7 @@
 <script>
 
     import {CONSTS} from '../consts';
-    import {Customer} from '../models/customer';
+    import {Customer} from '../models/Customer';
     import {debounce, cloneDeep} from 'lodash';
 
     const ENDPOINT = CONSTS.HOST + 'customer/list';
@@ -189,7 +189,7 @@
                         leadIds.forEach(leadId => {
                             queryString += `lead_id[]=${leadId}&`;
                         });
-                        window.location.href = '/delivery-lead/print?' + queryString;
+                        window.location.href = '/entities/delivery-lead/print?' + queryString;
                         this.erroredSaving = false;
                     })
                     .catch(error => {

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\DeliveryLead;
 use App\Invoice;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -17,48 +19,68 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('invoice');
+        return view('admin.invoice');
     }
 
     /**
      * Display the specified resource.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function showAll(Request $request)
     {
-        return response()->json(Invoice::all());
-    }
-
-    public function showByCustomer(Request $request, int $customerId)
-    {
         $valid = $this->validate($request, [
-            "search" => "string|nullable"
+            "limit" => "numeric|nullable",
+            "offset" => "numeric|nullable",
+            "search" => "string|nullable",
+            "sort_by" => "array|nullable"
         ]);
-        $search = $valid['search'] ?? null;
-        $customer = Customer::findOrFail($customerId);
-        $invoices = Invoice
-            ::whereCustomerId($customer->id)
-            ->whereRaw("id not in (
-            SELECT invoice_id as id
-              FROM delivery_lead_details dld
-        INNER JOIN invoices i ON (i.id = dld.invoice_id)
-             WHERE i.customer_id  = ? 
-        ) ", [$customer->id]);
-        if (isset($search)) {
-            $invoices = $invoices->where([
-                [
-                    'display_name',
-                    'like',
-                    '%' . $search . '%'
-                ]
-            ]);
+        $grid = new Grid(
+            $valid['limit'] ?? null,
+            $valid['offset'] ?? null,
+            $valid['search'] ?? null,
+            $valid['sort_by'] ?? null
+        );
+
+        $payments = DB::table('invoices as i')
+            ->join('customers as c', 'c.id', '=', 'i.customer_id')
+            ->limit($grid->getLimit())
+            ->offset($grid->getOffset())
+            ->selectRaw("
+                i.id as id,
+                i.display_name,
+                i.amount_total,
+                i.residual,
+                i.create_date,
+                i.date_due,
+                i.customer_id,
+                c.name as customer_name
+                ");
+
+        if ($grid->getSearch() !== null) {
+            $payments = $payments->whereRaw("lower(concat(
+            CONVERT(i.id, char),
+            i.display_name,
+            CONVERT(i.amount_total, char),
+            CONVERT(i.residual_total, char),
+            CONVERT(i.create_date, char),
+            CONVERT(i.date_due, char),
+            CONVERT(i.customer_id, char),
+            c.name
+            )) like lower('%{$grid->getSearch()}%')");
+        }
+        if (!empty($grid->getSortBy())) {
+            $payments->orderByRaw(collect($grid->getSortBy())->map(function ($sortBy) {
+                return "{$sortBy[0]} {$sortBy[1]}";
+            })->implode(","));
+        } else {
+            $payments->orderByRaw('i.id DESC, c.name, i.name');
         }
         return response()->json([
-            "total" => $invoices->count(),
-            "data" => $invoices->get(['id', 'display_name'])->toArray()
+            "total" => DB::table('invoices')->select('id')->count(),
+            "data" => $payments->get()
         ]);
-
     }
 }

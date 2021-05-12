@@ -112,6 +112,7 @@ class OdooConnectionModel
                 ->db($this->database)
                 ->host($this->host)
                 ->connect();
+
         }
         return $this->connection;
     }

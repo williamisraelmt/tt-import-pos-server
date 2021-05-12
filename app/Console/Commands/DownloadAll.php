@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class DownloadCustomersAndInvoices extends Command
+class DownloadAll extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'download:ci';
+    protected $signature = 'download:all';
 
     /**
      * The console command description.
@@ -39,6 +39,8 @@ class DownloadCustomersAndInvoices extends Command
     {
         $this->call(DownloadCustomers::class);
         $this->call(DownloadInvoices::class);
+        $this->call(DownloadProducts::class);
+        $this->call(DownloadPayments::class);
         return 0;
     }
 }

@@ -32,10 +32,10 @@ class Grid
      */
     public function __construct(?int $limit = 10, ?int $offset = 0, ?string $searchText = null, ?array $sortBy = [])
     {
-        $this->limit = $limit;
-        $this->offset = $offset;
+        $this->limit = $limit ?? 10;
+        $this->offset = $offset ?? 0;
         $this->search = $searchText;
-        $this->sortBy = $sortBy;
+        $this->sortBy = $sortBy ?? [];
     }
     /**
      * @return mixed

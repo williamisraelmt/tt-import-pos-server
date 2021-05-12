@@ -19,7 +19,7 @@ class DeliveryLeadController extends Controller
      */
     public function index()
     {
-        return view('delivery-lead');
+        return view('admin.delivery-lead');
     }
 
     /**
@@ -57,11 +57,15 @@ class DeliveryLeadController extends Controller
                 return "{$sortBy[0]} {$sortBy[1]}";
             })->implode(","));
         } else {
-            $delivery_leads->orderByRaw('dl.created_at');
+            $delivery_leads->orderByRaw('dl.id DESC');
         }
         return response()->json([
             "total" => $delivery_leads->count(),
-            "data" => $delivery_leads->get()
+            "data" => $delivery_leads->get()->map(function($record){
+                $invoices = $record->invoices;
+                $record->invoices = explode(",", $invoices);
+                return $record;
+            })
         ]);
     }
 
@@ -85,7 +89,7 @@ class DeliveryLeadController extends Controller
             return abort(404);
         }
 
-        return view('delivery-lead-print', [
+        return view('admin.delivery-lead-print', [
             'leads' => $leads
         ]);
     }

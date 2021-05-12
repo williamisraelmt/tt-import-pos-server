@@ -1,114 +1,174 @@
 <template>
-    <div class="container-xl">
-        <!-- Page title -->
-        <div class="row row-deck row-cards">
-            <div class="col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Facturas</h3>
-                    </div>
-                    <div class="card-body border-bottom py-3">
-                        <div class="d-flex">
-                            <div class="text-muted">
-                                Show
-                                <div class="mx-2 d-inline-block">
-                                    <input type="text" class="form-control form-control-sm" value="8" size="3">
-                                </div>
-                                entries
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="container-xl">
+                <!-- Page title -->
+                <div class="row row-deck row-cards">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Facturas</h3>
                             </div>
-                            <div class="ml-auto text-muted">
-                                Search:
-                                <div class="ml-2 d-inline-block">
-                                    <input type="text" class="form-control form-control-sm">
+                            <div class="card-body border-bottom pb-0">
+                                <div class="row row-sm">
+                                    <div class="col mb-3">
+                                        <input type="text" class="form-control" placeholder="Buscar"
+                                               v-model="grid.search">
+                                    </div>
+                                    <div class="col-auto mb-3">
+                                        <odoo-sync-button-component v-on:synced="getInvoices()"></odoo-sync-button-component>
+                                    </div>
+                                    <div class="col-auto mb-3">
+                                  <span class="dropdown ml-1">
+                                    <button class="btn btn-white dropdown-toggle"
+                                            data-boundary="viewport"
+                                            data-toggle="dropdown">Acciones</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+<!--                                      <a class="dropdown-item" href="javascript:void(0)" @click="createLeads()">-->
+<!--                                        Despachar-->
+<!--                                      </a>-->
+                                    </div>
+                                  </span>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="table-responsive mb-0">
+                                <table class="table card-table table-vcenter text-nowrap datatable">
+                                    <thead>
+                                    <tr>
+                                        <th class="w-1">Id</th>
+                                        <th>Cliente</th>
+                                        <th>Nombre</th>
+                                        <th class="text-center">Monto</th>
+                                        <th class="text-center">Balance pendiente</th>
+                                        <th>Fecha</th>
+                                        <th>Fecha vencimiento</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-if="!loading" v-for="invoice in invoices">
+                                        <td>
+                                            <span class="text-muted">{{invoice.id}}</span>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                            {{invoice.customerName}}
+                                        </td>
+                                        <td>
+                                            {{invoice.displayName}}
+                                        </td>
+                                        <td class="font-weight-bold" style="text-align: right">
+                                            {{invoice.amountTotal | currency}}
+                                        </td>
+                                        <td class="font-weight-bold" style="text-align: right">
+                                            {{invoice.residual | currency}}
+                                        </td>
+                                        <td>
+                                            {{invoice.createDate }}
+                                        </td>
+                                        <td>
+                                            {{invoice.dateDue }}
+                                        </td>
+                                    </tr>
+                                    <tr v-if="!loading && !invoices.length">
+                                        <td colspan="7">Sin resultados</td>
+                                    </tr>
+                                    <tr v-if="loading">
+                                        <td colspan="7">Cargando...</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer d-flex align-items-center" v-if="!loading">
+                                <div class="text-muted">
+                                    Ver
+                                    <div class="mx-2 d-inline-block">
+                                        <input type="text" class="form-control" value="8" size="3"
+                                               v-model="grid.limit">
+                                    </div>
+                                    entradas
+                                </div>
+                                <v-pagination class="m-0 ml-auto" v-model="currentPage"
+                                              :classes="bootstrapPaginationClasses"
+                                              :page-count="pageTotal"></v-pagination>
                             </div>
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap datatable">
-                            <thead>
-                            <tr>
-                                <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
-                                <th class="w-1">Id <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><polyline points="6 15 12 9 18 15"></polyline></svg>
-                                </th>
-                                <th class="w-1">No. <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><polyline points="6 15 12 9 18 15"></polyline></svg>
-                                </th>
-                                <th>Cliente</th>
-                                <th>Fecha</th>
-                                <th>Vencimiento</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                                <th>Price</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
-                                <td><span class="text-muted">001401</span></td>
-                                <td><a href="invoice.html" class="text-reset" tabindex="-1">Design Works</a></td>
-                                <td>
-                                    <span class="flag flag-country-us"></span>
-                                    Carlson Limited
-                                </td>
-                                <td>
-                                    87956621
-                                </td>
-                                <td>
-                                    15 Dec 2017
-                                </td>
-                                <td>
-                                    <span class="status-icon bg-success"></span> Paid
-                                </td>
-                                <td>$887</td>
-                                <td class="text-right">
-                      <span class="dropdown ml-1">
-                        <button class="btn btn-white btn-sm dropdown-toggle align-text-top" data-boundary="viewport" data-toggle="dropdown">Actions</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">
-                            Action
-                          </a>
-                          <a class="dropdown-item" href="#">
-                            Another action
-                          </a>
-                        </div>
-                      </span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer d-flex align-items-center">
-                        <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries</p>
-                        <ul class="pagination m-0 ml-auto">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><polyline points="15 6 9 12 15 18"></polyline></svg>
-                                    prev
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    next <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"></path><polyline points="9 6 15 12 9 18"></polyline></svg>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
+import {debounce} from 'lodash';
+import {CONSTS} from '../consts';
+import {Grid} from "../models/Grid";
+
+const ENDPOINT = CONSTS.HOST + 'invoice';
+
+export default {
+    data: function () {
+        return {
+            bootstrapPaginationClasses: {
+                ul: 'pagination m-0 ml-auto',
+                li: 'page-item',
+                liActive: 'active',
+                liDisable: 'disabled',
+                button: 'page-link'
+            },
+            invoices: [],
+            pageTotal: 0,
+            total: 0,
+            currentPage: 1,
+            grid: {
+                limit: 10,
+                sortBy: [],
+                search: "",
+            },
+            loading: true,
+            errored: false,
         }
+    },
+    watch: {
+        grid: {
+            handler: debounce(function (val) {
+                this.getInvoices();
+            }, 800),
+            deep: true
+        },
+        currentPage: {
+            handler: function (val) {
+                this.getInvoices();
+            },
+            deep: true
+        },
+    },
+    methods: {
+        getInvoices: function () {
+            this.loading = true;
+            const grid = new Grid(
+                this.grid.limit,
+                this.grid.limit * (this.currentPage - 1),
+                this.grid.sortBy,
+                this.grid.search
+            );
+            axios
+                .get(ENDPOINT + grid.toHttpQueryString())
+                .then(response => {
+                    this.invoices = response.data.data;
+                    this.total = response.data.total;
+                    this.pageTotal = Math.ceil((this.total / grid.limit) || 0);
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+        },
+    },
+    mounted() {
+        this.getInvoices();
     }
+}
 </script>

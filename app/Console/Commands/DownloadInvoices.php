@@ -5,11 +5,12 @@ namespace App\Console\Commands;
 use App\Console\Commands\Traits\OdooDownload;
 use App\Customer;
 use App\Invoice;
-use App\Odoo\OdooInvoice;
+use App\Console\Commands\Models\OdooInvoice;
 use Carbon\Carbon;
 use Edujugon\Laradoo\Exceptions\OdooException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DownloadInvoices extends Command
@@ -52,6 +53,15 @@ class DownloadInvoices extends Command
             "partner_id",
             "date",
             "amount_total",
+            "residual"
+        ];
+
+        $this->where = [
+            [
+                "type",
+                "=",
+                "out_invoice"
+            ]
         ];
 
         $this->connection = new OdooConnectionModel(
@@ -60,6 +70,7 @@ class DownloadInvoices extends Command
             config("odoo.database"),
             config("odoo.host")
         );
+
     }
 
     /**
@@ -72,6 +83,7 @@ class DownloadInvoices extends Command
         $this->info("Starting to download invoices");
 
         try {
+            DB::beginTransaction();
             $this->download()
                 ->map(function ($record) {
                     return new OdooInvoice(
@@ -85,7 +97,8 @@ class DownloadInvoices extends Command
                         $record["date_due"],
                         $record["partner_id"][0],
                         $record["date"],
-                        $record["amount_total"]
+                        $record["amount_total"],
+                        $record['residual']
                     );
                 })
                 ->filter(function (OdooInvoice $invoice) {
@@ -103,7 +116,10 @@ class DownloadInvoices extends Command
                             })->values()->toArray()
                     );
                 });
+            DB::commit();
+            Log::info('Downloaded invoices');
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->error($e->getMessage());
             $this->error($e->getTraceAsString());
             Log::error($e->getMessage());
