@@ -16,13 +16,14 @@ class AfterMiddleware
 {
     public function handle($request, Closure $next)
     {
-        /** @var StreamedResponse  $response */
+        /** @var StreamedResponse $response */
         $response = $next($request);
-        if ($response && str_contains($response->headers->get('content-type'), "json"))
-        // Perform action
-        try {
-            $response->setData(CamelCaseUtil::keysToCamelCase($response->getData()));
-        } catch (\Exception $e) {
+        if ($response && $request->expectsJson()) {
+            // Perform action
+            try {
+                $response->setData(CamelCaseUtil::keysToCamelCase($response->getData()));
+            } catch (\Exception $e) {
+            }
         }
         return $response;
     }

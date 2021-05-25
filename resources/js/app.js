@@ -51,6 +51,12 @@ Vue.component('select-debt-collector-modal-component', require('./components/Sel
 
 Vue.component('odoo-sync-button-component', require('./components/OdooSyncButtonComponent.vue').default)
 
+Vue.component('shop-header-component', require('./components/ShopHeaderComponent.vue').default);
+
+Vue.component('user-dropdown-component', require('./components/UserDropDownComponent').default);
+
+Vue.component('user-settings-component', require('./components/UserSettingsComponent').default);
+
 /**
  * External libraries
  */

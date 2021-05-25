@@ -11,11 +11,22 @@ class BeforeMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Perform action
-        $parameters = $request->all();
-        foreach ($request->all() as $key => &$row){
-            unset($request[$key]);
+        if (!$request->expectsJson()) {
+
+            return $next($request);
+
         }
+
+        $parameters = $request->all();
+
+        foreach ($request->all() as $key => &$row) {
+
+            unset($request[$key]);
+
+        }
+
         $request->merge(CamelCaseUtil::keysToUnderscore($parameters));
+
         return $next($request);
     }
 }

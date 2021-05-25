@@ -518,7 +518,7 @@
 }
 
 .multiselect__select {
-  height: 36px;
+  min-height: 36px;
 }
 
 .multiselect__tag-icon {

@@ -38,24 +38,32 @@ class Customer extends Model
 
     protected $appends = ['parsed_address'];
 
-    public function debtCollector() {
+    public function debtCollector()
+    {
         return $this->belongsTo(DebtCollector::class);
     }
 
-    public function invoices(){
+    public function invoices()
+    {
         return $this->hasMany(Invoice::class);
     }
 
-    public function deliveryLeads(){
+    public function deliveryLeads()
+    {
         return $this->hasMany(DeliveryLead::class);
     }
 
     public function getParsedAddressAttribute($value)
     {
         $address = explode("\n", $this->address);
-        if (sizeof($address) < 5){
+        if (sizeof($address) < 5) {
             array_unshift($address, $this->name);
         }
         return $address;
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_customers');
     }
 }

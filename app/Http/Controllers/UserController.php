@@ -23,9 +23,17 @@ class UserController extends Controller
     }
 
 
+    public function loggedUser(){
+
+        return response()->json([
+            "data" => auth()->user() ?? null
+        ]);
+
+    }
 
     public function store(Request $request)
     {
+
         $id = $request->all()['id'] ?? null;
 
         $unique_validation = isset($id) ? ",{$id}" : "";
@@ -107,7 +115,7 @@ class UserController extends Controller
 
     public function show(Request $request, $userId)
     {
-        $user = User::findOrFail($userId);
+        $user = User::with('roles', 'customers')->findOrFail($userId);
 
         return response()->json([
             "data" => $user

@@ -11,11 +11,17 @@
 
 <body class="antialiased">
 <div class="page" id="app">
-    <header class="navbar navbar-expand-md navbar-dark d-print-none">
+    <header class="navbar navbar-expand-md d-print-none">
         <div class="container-xl">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <div class="navbar-nav flex-row  order-md-last">
+                <div class="nav-item d-md-flex">
+                    <user-dropdown-component menu="admin"></user-dropdown-component>
+                </div>
+            </div>
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                     <ul class="navbar-nav">
@@ -33,7 +39,7 @@
                       Entidades
                     </span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <h6 class="dropdown-header">Personas</h6>
                                 <a class="dropdown-item" href="{{ route("customer") }}">
                                     Clientes
@@ -79,7 +85,8 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button"  id="dropdownMenuButton2" aria-expanded="true">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button"
+                               id="dropdownMenuButton2" aria-expanded="true">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"

@@ -11,7 +11,7 @@
                             </div>
                             <div class="card-body border-bottom pb-0">
                                 <div class="row row-sm">
-                                    <div class="col mb-3">
+                                    <div class="col-sm-12 col-md-auto flex-md-grow-1 mb-3">
                                         <input type="text" class="form-control" placeholder="Buscar"
                                                v-model="grid.search">
                                     </div>

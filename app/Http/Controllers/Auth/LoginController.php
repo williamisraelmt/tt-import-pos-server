@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -37,13 +38,23 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
+    /**
      * Show the application's login form.
      *
      * @return \Illuminate\View\View
      */
     public function showLoginForm()
     {
-        return view('shop.auth.login');
+        return view('auth.login');
     }
 
     /**
@@ -152,11 +163,11 @@ class LoginController extends Controller
     {
         if ($user->hasRole('admin')){
 
-            redirect()->intended(route('customer'));
+            return Redirect::to(route('invoice'));
 
         }
 
-        redirect()->intended($this->redirectPath());
+        return Redirect::guest( $this->redirectPath() );
 
     }
 
@@ -227,15 +238,5 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard();
-    }
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
     }
 }

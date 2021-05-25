@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.admin')
 
 @section('content')
     <invoice-component></invoice-component>

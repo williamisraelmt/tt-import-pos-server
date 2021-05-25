@@ -64,4 +64,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'status' => 'boolean'
     ];
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class, 'user_customers');
+    }
+
 }

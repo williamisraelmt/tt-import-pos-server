@@ -1,103 +1,6 @@
 <template>
     <div>
-        <header class="navbar navbar-expand-md navbar-transparent d-print-none">
-            <div class="container-xl">
-<!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">-->
-<!--                    <span class="navbar-toggler-icon"></span>-->
-<!--                </button>-->
-                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href=".">
-                        <img width="110" height="32" alt="Tabler" class="navbar-brand-image">
-                    </a>
-                </h1>
-                <div class="navbar-nav flex-row  order-md-last">
-                    <div class="nav-item d-md-flex">
-                        <div class="btn-list">
-                            <a href="https://github.com/sponsors/codecalm" class="btn btn-outline-secondary disabled" target="_blank" rel="noreferrer">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="6" cy="19" r="2"/>
-                                    <circle cx="17" cy="19" r="2"/>
-                                    <path d="M17 17h-11v-14h-2"/>
-                                    <path d="M6 5l14 1l-1 7h-13"/>
-                                </svg> 0 items
-                            </a>
-                            <a href="https://github.com/sponsors/codecalm" class="btn btn-primary disabled" target="_blank" rel="noreferrer">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/user -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="12" cy="7" r="4"/>
-                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
-                                </svg>Login
-                            </a>
-                        </div>
-                    </div>
-                </div>
-<!--                <div class="collapse navbar-collapse" id="navbar-menu">-->
-<!--                    <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">-->
-<!--                        <ul class="navbar-nav">-->
-<!--                            <li class="nav-item active">-->
-<!--                                <a class="nav-link" href="./#">-->
-<!--                              <span class="nav-link-icon d-md-none d-lg-inline-block">&lt;!&ndash; Download SVG icon from http://tabler-icons.io/i/star &ndash;&gt;-->
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>-->
-<!--                              </span>-->
-<!--                                    <span class="nav-link-title">-->
-<!--                                First-->
-<!--                              </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="./#">-->
-<!--                              <span class="nav-link-icon d-md-none d-lg-inline-block">&lt;!&ndash; Download SVG icon from http://tabler-icons.io/i/star &ndash;&gt;-->
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>-->
-<!--                              </span>-->
-<!--                                    <span class="nav-link-title">-->
-<!--                                Second-->
-<!--                              </span>-->
-<!--                                    <span class="badge bg-red">2</span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item dropdown">-->
-<!--                                <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" role="button" aria-expanded="false">-->
-<!--                              <span class="nav-link-icon d-md-none d-lg-inline-block">&lt;!&ndash; Download SVG icon from http://tabler-icons.io/i/star &ndash;&gt;-->
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>-->
-<!--                              </span>-->
-<!--                                    <span class="nav-link-title">-->
-<!--                                Third-->
-<!--                              </span>-->
-<!--                                </a>-->
-<!--                                <div class="dropdown-menu">-->
-<!--                                    <a class="dropdown-item" href="./#">-->
-<!--                                        First-->
-<!--                                    </a>-->
-<!--                                    <a class="dropdown-item" href="./#">-->
-<!--                                        Second-->
-<!--                                    </a>-->
-<!--                                    <a class="dropdown-item" href="./#">-->
-<!--                                        Third-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link disabled" href="./#">-->
-<!--                              <span class="nav-link-icon d-md-none d-lg-inline-block">&lt;!&ndash; Download SVG icon from http://tabler-icons.io/i/star &ndash;&gt;-->
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path></svg>-->
-<!--                              </span>-->
-<!--                                    <span class="nav-link-title">-->
-<!--                                Disabled-->
-<!--                              </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-            </div>
-        </header>
+        <shop-header-component></shop-header-component>
         <div class="navbar-expand-md">
             <div id="navbar-menu">
                 <div class="navbar navbar-transparent">
@@ -211,7 +114,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-9 d-flex flex-column justify-content-center" v-if="!loading && !total">
+                            <div class="col-12 d-flex flex-column justify-content-center" v-if="!loading && !total">
                                 <div class="empty">
                                     <div class="empty-img">
                                         <img
@@ -221,7 +124,7 @@
                                     <p class="empty-title">Sin resultados</p>
                                 </div>
                             </div>
-                            <div class="col-9 align-items-center" v-if="loading">
+                            <div class="col-12 align-items-center" v-if="loading">
                                 Cargando...
                             </div>
                         </div>
@@ -239,10 +142,12 @@ import ProductPhotoModalComponent from "./ProductPhotoModalComponent";
 import {Grid} from "../models/Grid";
 import {Product} from "../models/Product";
 import {CONSTS} from "../consts";
+import ShopHeaderComponent from "./ShopHeaderComponent";
 
 const ENDPOINT = CONSTS.HOST + 'product';
 
 export default {
+    components: {ShopHeaderComponent},
     data: function () {
         return {
             bootstrapPaginationClasses: {

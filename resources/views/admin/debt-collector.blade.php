@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin.admin')
 
 @section('content')
     <debt-collector-component></debt-collector-component>

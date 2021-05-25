@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Customer;
 use App\DebtCollector;
 use App\Http\Controllers\Grid;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,9 @@ class Test extends Command
      */
     public function handle()
     {
+
+        dd(User::find(1)->hasRole('customer'));
+
         $odoo = new \Edujugon\Laradoo\Odoo();
         $connection = $odoo
             ->username('williamtoribio@gmail.com')
