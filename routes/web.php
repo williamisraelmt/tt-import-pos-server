@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::domain('admin.tt-import-pos-server.test')->group(function () {
+    Route::domain('admin.' . env('HOST'))->group(function () {
 
         Route::prefix('entities')->group(function () {
 
