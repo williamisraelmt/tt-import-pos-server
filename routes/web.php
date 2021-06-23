@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,10 +76,11 @@ Auth::routes([
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::get('settings', 'SettingsController@index')->name('home');
+    Route::get('settings', 'SettingsController@index')->name('catalog');
 
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'CatalogController@index')->name('catalog');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::redirect('/#/{vue_route}', '/');
+

@@ -86,7 +86,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="card-body">
-                                                        <h3 class="card-title"><a v-bind:href="`/product/${product.id}`">{{ product.name }}</a></h3>
+                                                        <h3 class="card-title"><router-link v-bind:to="`/catalog/${product.id}`">{{ product.name }}</router-link></h3>
                                                         <ul class="text-muted small lh-base list-unstyled">
                                                             <li>Referencia: {{product.defaultCode}}</li>
                                                             <li>Marca: {{ product.brand }}</li>

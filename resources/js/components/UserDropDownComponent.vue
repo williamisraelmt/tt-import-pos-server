@@ -13,7 +13,7 @@
             {{ user.fullName }}
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <template v-if="menu === 'shop'">
+            <template v-if="menu === 'catalog'">
                 <a href="#" class="dropdown-item">Mis facturas</a>
                 <a href="#" class="dropdown-item">Mis pagos</a>
                 <div class="dropdown-divider"></div>

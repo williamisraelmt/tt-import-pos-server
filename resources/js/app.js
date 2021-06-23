@@ -4,6 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import CatalogComponent from "./components/CatalogComponent";
+import CatalogDetailComponent from "./components/CatalogDetailComponent";
+
 require('@tabler/core/dist/js/tabler.min');
 require('./bootstrap');
 
@@ -15,6 +18,7 @@ import Viewer from 'v-viewer';
 import VTooltip from 'v-tooltip'
 import VueSelectImage from 'vue-select-image'
 import Vue2Filters from 'vue2-filters'
+import VueRouter from 'vue-router'
 
 window.Vue = require('vue');
 
@@ -38,7 +42,6 @@ Vue.component('customer-component', require('./components/CustomerComponent.vue'
 Vue.component('delivery-lead-component', require('./components/DeliveryLeadComponent.vue').default);
 Vue.component('invoice-select-component', require('./components/InvoiceSelectComponent.vue').default);
 Vue.component('product-component', require('./components/ProductComponent.vue').default);
-Vue.component('catalog-component', require('./components/CatalogComponent.vue').default);
 Vue.component('commission-calculator-component', require('./components/CommissionCalculatorComponent.vue').default);
 Vue.component('debt-collector-component', require('./components/DebtCollectorComponent.vue').default);
 Vue.component('payment-component', require('./components/PaymentComponent.vue').default);
@@ -82,7 +85,7 @@ Vue.use(Vue2Filters);
 // register globally
 Vue.component('multiselect', Multiselect);
 
-
+Vue.use(VueRouter);
 
 var filter = function(text, length, clamp){
     clamp = clamp || '...';
@@ -94,12 +97,26 @@ var filter = function(text, length, clamp){
 
 Vue.filter('truncate', filter);
 
+const routes = [
+    { path: '/catalog', component: CatalogComponent },
+    { path: '/catalog/:id', component: CatalogDetailComponent },
+    { path: '/', component: CatalogComponent },
+]
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
 const app = new Vue({
     el: '#app',
+    router
 });
+
+
+console.log(router);

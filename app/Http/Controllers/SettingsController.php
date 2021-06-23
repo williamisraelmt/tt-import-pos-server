@@ -9,7 +9,7 @@ class SettingsController extends Controller
 
     public function index(){
 
-        return view('shop.settings');
+        return view('catalog.settings');
 
     }
 
