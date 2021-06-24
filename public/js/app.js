@@ -2271,7 +2271,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CatalogDetailComponent"
+  name: "CatalogDetailComponent",
+  mounted: function mounted() {},
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    console.log(this.$route.params['id']);
+  }
 });
 
 /***/ }),
@@ -3927,6 +3931,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_Customer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/Customer */ "./resources/js/models/Customer.js");
 /* harmony import */ var _CreateLeadModalComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateLeadModalComponent */ "./resources/js/components/CreateLeadModalComponent.vue");
 /* harmony import */ var _SelectDebtCollectorModalComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SelectDebtCollectorModalComponent */ "./resources/js/components/SelectDebtCollectorModalComponent.vue");
+//
+//
+//
 //
 //
 //
@@ -9951,7 +9958,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css?df69":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css":
 /*!*******************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/viewerjs/dist/viewer.css ***!
   \*******************************************************************************************************************************/
@@ -85268,7 +85275,7 @@ if (false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./viewer.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css?df69");
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./viewer.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -92869,6 +92876,19 @@ var render = function() {
                                 ])
                               : _vm._e()
                           }),
+                          _vm._v(" "),
+                          !_vm.loading && !_vm.records.length
+                            ? _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { colspan: "7" }
+                                  },
+                                  [_vm._v("Sin resultados.")]
+                                )
+                              ])
+                            : _vm._e(),
                           _vm._v(" "),
                           _vm.loading
                             ? _c("tr", [

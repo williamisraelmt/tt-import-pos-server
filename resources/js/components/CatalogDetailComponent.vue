@@ -6,6 +6,11 @@
 
 <script>
 export default {
-name: "CatalogDetailComponent"
+    name: "CatalogDetailComponent",
+    mounted() {
+    },
+    beforeRouteUpdate(to, from, next) {
+        console.log(this.$route.params['id']);
+    }
 }
 </script>

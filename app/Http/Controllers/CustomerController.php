@@ -48,7 +48,7 @@ class CustomerController extends Controller
             ->limit($grid->getLimit())->offset($grid->getOffset())
             ->selectRaw('c.id, c.name, c.address, c.phone, c.debt_collector_id, dc.name as debt_collector_name');
         if ($grid->getSearch() !== null) {
-            $customers = $customers->whereRaw("lower(concat(CONVERT(c.id, char), c.name, c.address, c.phone, dc.name)) like lower('%{$grid->getSearch()}%')");
+            $customers = $customers->whereRaw("lower(concat(CONVERT(c.id, char), COALESCE(c.name, ''), coalesce(c.address, ''), COALESCE(c.phone, ''), COALESCE(dc.name, ''))) like lower('%{$grid->getSearch()}%')");
         }
         if (!empty($grid->getSortBy())) {
             $customers->orderByRaw(collect($grid->getSortBy())->map(function ($sortBy) {

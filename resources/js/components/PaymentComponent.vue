@@ -69,6 +69,9 @@
                                             </span>
                                         </td>
                                     </tr>
+                                    <tr v-if="!loading && !records.length">
+                                        <td colspan="7" class="text-center">Sin resultados.</td>
+                                    </tr>
                                     <tr v-if="loading">
                                         <td colspan="6">Cargando...</td>
                                     </tr>

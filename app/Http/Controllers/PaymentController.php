@@ -72,13 +72,13 @@ class PaymentController extends Controller
         if ($grid->getSearch() !== null) {
             $payments = $payments->whereRaw("lower(concat(
             CONVERT(p.id, char),
-            p.name,
-            CONVERT(p.amount, char),
-            CONVERT(p.customer_id, char),
-            c.name,
-            CONVERT(p.debt_collector_id, char),
-            dc.name,
-            i.display_name
+            COALESCE(p.name, ''),
+            COALESCE(CONVERT(p.amount, char), ''),
+            COALESCE(CONVERT(p.customer_id, char), ''),
+            COALESCE(c.name, ''),
+            COALESCE(CONVERT(p.debt_collector_id, char), ''),
+            COALESCE(dc.name, ''),
+            COALESCE(i.display_name, '')
             )) like lower('%{$grid->getSearch()}%')");
         }
         if (!empty($grid->getSortBy())) {
