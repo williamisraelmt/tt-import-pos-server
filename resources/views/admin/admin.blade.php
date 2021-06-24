@@ -7,6 +7,9 @@
     <title>Laravel</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="antialiased">

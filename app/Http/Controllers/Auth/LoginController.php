@@ -167,7 +167,7 @@ class LoginController extends Controller
 
         }
 
-        return Redirect::guest( $this->redirectPath() );
+        return Redirect::guest( '/' );
 
     }
 

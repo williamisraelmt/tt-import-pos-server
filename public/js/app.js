@@ -4522,6 +4522,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_0__["CONSTS"].HOST + 'product';
@@ -4547,7 +4558,11 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_2___default()(filepond_plug
       photosList: [],
       errored: false,
       erroredSaving: false,
-      myFiles: []
+      myFiles: [],
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+      }
     };
   },
   watch: {},
@@ -9936,7 +9951,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css?df69":
 /*!*******************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/viewerjs/dist/viewer.css ***!
   \*******************************************************************************************************************************/
@@ -85253,7 +85268,7 @@ if (false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./viewer.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css");
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./viewer.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/viewerjs/dist/viewer.css?df69");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -93691,7 +93706,12 @@ var render = function() {
                     "allow-multiple": "true",
                     "accepted-file-types": "image/jpeg, image/png",
                     files: _vm.myFiles,
-                    server: "/api/product/photos/" + _vm.selectedProduct.id
+                    server: {
+                      process: {
+                        url: "/api/product/photos/" + _vm.selectedProduct.id,
+                        headers: _vm.headers
+                      }
+                    }
                   },
                   on: {
                     init: _vm.handleFilePondInit,
@@ -111882,7 +111902,6 @@ var app = new Vue({
   el: '#app',
   router: router
 });
-console.log(router);
 
 /***/ }),
 

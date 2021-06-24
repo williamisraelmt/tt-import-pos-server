@@ -20,7 +20,9 @@
                                     :src="`/api/product/photo/${selectedProduct.id}/${item.url}`"
                                     class="card-img-top"></a>
                                 <div class="d-flex">
-                                    <a href="#" class="card-btn" v-on:click="deletePhoto(item.id)" style="padding: .5rem .5rem;" aria-label="Eliminar"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
+                                    <a href="#" class="card-btn" v-on:click="deletePhoto(item.id)"
+                                       style="padding: .5rem .5rem;" aria-label="Eliminar">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/mail -->
                                         <!-- Download SVG icon from http://tabler-icons.io/i/trash -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -31,8 +33,11 @@
                                             <line x1="14" y1="11" x2="14" y2="17"/>
                                             <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
                                             <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                                        </svg></a>
-                                    <a href="#" class="card-btn"  v-on:click="markPhotoAsFavorite(item.id)" style="padding: .5rem .5rem;" aria-label="Por defecto"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="card-btn" v-on:click="markPhotoAsFavorite(item.id)"
+                                       style="padding: .5rem .5rem;" aria-label="Por defecto">
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/phone -->
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              v-bind:class="{ 'text-red': defaultPhoto === item.url }"
                                              class="icon icon-filled" width="24"
@@ -42,7 +47,8 @@
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path
                                                 d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"/>
-                                        </svg></a>
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +68,12 @@
                         v-on:onaddfilestart="handleOnAddFileStart"
                         v-on:processfile="handleOnAddFile"
                         v-on:updatefiles="handleOnUpdateFiles"
-                        v-bind:server="'/api/product/photos/' + selectedProduct.id"/>
+                        v-bind:server="{
+                            process: {
+                                url: '/api/product/photos/' + selectedProduct.id,
+                                headers
+                            }
+                        }"/>
                 </div>
             </div>
         </div>
@@ -84,7 +95,7 @@ const ENDPOINT = CONSTS.HOST + 'product';
 const PHOTOS_ENDPOINT = ENDPOINT + '/photos';
 
 // Import Vue FilePond
-import vueFilePond from "vue-filepond";
+import vueFilePond, {setOptions} from 'vue-filepond';
 // Import FilePond styles
 import FilePondPluginFileValidateType
     from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
@@ -109,7 +120,11 @@ export default {
             photosList: [],
             errored: false,
             erroredSaving: false,
-            myFiles: []
+            myFiles: [],
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
         }
     },
     watch: {},
@@ -155,7 +170,7 @@ export default {
         handleOnAddFileStart: function (e) {
             this.erroredSaving = false;
         },
-        deletePhoto: function(id){
+        deletePhoto: function (id) {
             this.loading = true;
             axios
                 .delete(`${PHOTOS_ENDPOINT}/${this.selectedProduct.id}/${id}`)
@@ -168,7 +183,7 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
-        markPhotoAsFavorite: function(id){
+        markPhotoAsFavorite: function (id) {
             this.loading = true;
             axios
                 .put(`${ENDPOINT}/${this.selectedProduct.id}/favorite-photo/${id}`)
