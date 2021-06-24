@@ -24,12 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7cd78e44-54e8-4862-9a52-b2dc178255d4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vagrant/machines/tt-import-pos-server/virtualbox/action_set_name" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/tt-import-pos-server/virtualbox/action_set_name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/CatalogDetailComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CatalogDetailComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/PaymentComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/PaymentComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +311,7 @@
       <workItem from="1624508181724" duration="230000" />
       <workItem from="1624541571844" duration="470000" />
       <workItem from="1624544604493" duration="3277000" />
-      <workItem from="1624551608864" duration="3831000" />
+      <workItem from="1624551608864" duration="4557000" />
     </task>
     <servers />
   </component>

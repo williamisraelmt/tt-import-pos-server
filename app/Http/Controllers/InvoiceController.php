@@ -64,7 +64,6 @@ class InvoiceController extends Controller
             CONVERT(i.id, char),
             i.display_name,
             CONVERT(i.amount_total, char),
-            CONVERT(i.residual_total, char),
             CONVERT(i.create_date, char),
             CONVERT(i.date_due, char),
             CONVERT(i.customer_id, char),
