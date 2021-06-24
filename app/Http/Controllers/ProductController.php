@@ -70,7 +70,7 @@ class ProductController extends Controller
             "data" => $products
                 ->limit($grid->getLimit())
                 ->offset($grid->getOffset())
-                ->selectRaw("p.id, p.name, p.default_code, p.available_quantity, p.default_photo_url, pb.name as brand")
+                ->selectRaw("p.id, p.name, p.status, p.default_code, p.available_quantity, p.default_photo_url, pb.name as brand")
                 ->get()
                 ->toArray()
         ]);

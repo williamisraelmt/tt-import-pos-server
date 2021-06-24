@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('id')->primary();
             $table->string('name');
             $table->string('default_code');
-            $table->boolean('status')->nullable()->default(true);
+            $table->boolean('status')->nullable()->default(1);
             $table->float('available_quantity')->nullable()->default(0);
             $table->float('lst_price')->nullable()->default(0);
             $table->float('list_price')->nullable()->default(0);
