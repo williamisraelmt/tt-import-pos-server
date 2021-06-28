@@ -45,7 +45,6 @@ class CustomerController extends Controller
         );
         $customers = DB::table( Customer::getTableName() . ' as c')
             ->leftJoin('debt_collectors as dc', 'dc.id', '=', 'c.debt_collector_id')
-            ->limit($grid->getLimit())->offset($grid->getOffset())
             ->selectRaw('c.id, c.name, c.address, c.phone, c.debt_collector_id, dc.name as debt_collector_name');
         if ($grid->getSearch() !== null) {
             $customers = $customers->whereRaw("lower(concat(CONVERT(c.id, char), COALESCE(c.name, ''), coalesce(c.address, ''), COALESCE(c.phone, ''), COALESCE(dc.name, ''))) like lower('%{$grid->getSearch()}%')");
@@ -58,8 +57,8 @@ class CustomerController extends Controller
             $customers->orderByRaw('c.id, c.name');
         }
         return response()->json([
-            "total" => DB::table( Customer::getTableName() )->select('id')->count(),
-            "data" => $customers->get()
+            "total" => $customers->count(),
+            "data" => $customers->limit($grid->getLimit())->offset($grid->getOffset())->get()
         ]);
     }
 

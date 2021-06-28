@@ -51,6 +51,7 @@ Vue.component('product-photo-modal-component', require('./components/ProductPhot
 Vue.component('create-lead-modal-component', require('./components/CreateLeadModalComponent.vue').default);
 Vue.component('store-debt-collector-modal-component', require('./components/StoreDebtCollectorModalComponent.vue').default);
 Vue.component('select-debt-collector-modal-component', require('./components/SelectDebtCollectorModalComponent.vue').default);
+Vue.component('store-product-modal-component', require('./components/StoreProductModalComponent.vue').default);
 
 Vue.component('odoo-sync-button-component', require('./components/OdooSyncButtonComponent.vue').default)
 
@@ -87,7 +88,7 @@ Vue.component('multiselect', Multiselect);
 
 Vue.use(VueRouter);
 
-var filter = function(text, length, clamp){
+var filter = function (text, length, clamp) {
     clamp = clamp || '...';
     var node = document.createElement('div');
     node.innerHTML = text;
@@ -98,9 +99,13 @@ var filter = function(text, length, clamp){
 Vue.filter('truncate', filter);
 
 const routes = [
-    { path: '/catalog', component: CatalogComponent },
-    { path: '/catalog/:id', component: CatalogDetailComponent },
-    { path: '/', component: CatalogComponent },
+    {path: '/catalog', component: CatalogComponent},
+    {
+        path: '/catalog/detail',
+        component: CatalogDetailComponent,
+        beforeEnter: require('./guards/product-exists').default
+    },
+    {path: '/', component: CatalogComponent},
 ]
 
 /**

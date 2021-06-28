@@ -37,6 +37,7 @@ class InvoiceController extends Controller
             "search" => "string|nullable",
             "sort_by" => "array|nullable"
         ]);
+
         $grid = new Grid(
             $valid['limit'] ?? null,
             $valid['offset'] ?? null,
@@ -44,10 +45,8 @@ class InvoiceController extends Controller
             $valid['sort_by'] ?? null
         );
 
-        $payments = DB::table('invoices as i')
+        $invoices = DB::table('invoices as i')
             ->join('customers as c', 'c.id', '=', 'i.customer_id')
-            ->limit($grid->getLimit())
-            ->offset($grid->getOffset())
             ->selectRaw("
                 i.id as id,
                 i.display_name,
@@ -60,7 +59,7 @@ class InvoiceController extends Controller
                 ");
 
         if ($grid->getSearch() !== null) {
-            $payments = $payments->whereRaw("lower(concat(
+            $invoices = $invoices->whereRaw("lower(concat(
             CONVERT(i.id, char),
             i.display_name,
             CONVERT(i.amount_total, char),
@@ -69,17 +68,19 @@ class InvoiceController extends Controller
             CONVERT(i.customer_id, char),
             c.name
             )) like lower('%{$grid->getSearch()}%')");
+
         }
+
         if (!empty($grid->getSortBy())) {
-            $payments->orderByRaw(collect($grid->getSortBy())->map(function ($sortBy) {
+            $invoices->orderByRaw(collect($grid->getSortBy())->map(function ($sortBy) {
                 return "{$sortBy[0]} {$sortBy[1]}";
             })->implode(","));
         } else {
-            $payments->orderByRaw('i.id DESC, c.name, i.name');
+            $invoices->orderByRaw('i.id DESC, c.name, i.name');
         }
         return response()->json([
-            "total" => DB::table('invoices')->select('id')->count(),
-            "data" => $payments->get()
+            "total" => $invoices->count(),
+            "data" => $invoices->limit($grid->getLimit())->offset($grid->getOffset())->get()
         ]);
     }
 }

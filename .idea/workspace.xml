@@ -24,6 +24,31 @@
   <component name="ChangeListManager">
     <list default="true" id="7cd78e44-54e8-4862-9a52-b2dc178255d4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vagrant/machines/tt-import-pos-server/virtualbox/action_set_name" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/tt-import-pos-server/virtualbox/action_set_name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CatalogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CatalogController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DebtCollectorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DebtCollectorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DeliveryLeadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DeliveryLeadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InvoiceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductBrandController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductBrandController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductCategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductDepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductDepartmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductModelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductModelController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductTypeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/CatalogComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CatalogComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/CatalogDetailComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CatalogDetailComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ProductComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ProductComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ShopHeaderComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ShopHeaderComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/UserDropDownComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UserDropDownComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/models/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/models/Product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,6 +337,14 @@
       <workItem from="1624541571844" duration="470000" />
       <workItem from="1624544604493" duration="3277000" />
       <workItem from="1624551608864" duration="4557000" />
+      <workItem from="1624577303593" duration="1251000" />
+      <workItem from="1624584763657" duration="1095000" />
+      <workItem from="1624630540293" duration="5724000" />
+      <workItem from="1624661665491" duration="619000" />
+      <workItem from="1624665381722" duration="3149000" />
+      <workItem from="1624760550348" duration="1393000" />
+      <workItem from="1624891337416" duration="831000" />
+      <workItem from="1624892522707" duration="13035000" />
     </task>
     <servers />
   </component>
@@ -347,18 +380,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="513" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624245101931" />
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1621272616108">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1624912691917">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621272616108" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624912691917" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1624059972619">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624059972619" />
-    <state x="682" y="243" key="NewPhpClassDialog" timestamp="1621271014295">
+    <state x="771" y="286" key="NewPhpClassDialog" timestamp="1624910790369">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="682" y="243" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621271014295" />
+    <state x="771" y="286" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624910790369" />
     <state x="794" y="443" key="NewPhpFileDialog" timestamp="1620860911547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -371,29 +404,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623980584611" />
-    <state x="16" y="77" width="1736" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1624545944403">
+    <state x="16" y="77" width="1736" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1624649640349">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="16" y="77" width="1736" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624545944403" />
+    <state x="16" y="77" width="1736" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624649640349" />
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616712001099">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1616712001099" />
-    <state x="667" y="119" width="836" height="801" key="find.popup" timestamp="1624544589388">
+    <state x="667" y="119" width="836" height="801" key="find.popup" timestamp="1624916760886">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="119" width="836" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624544589388" />
+    <state x="667" y="119" width="836" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624916760886" />
     <state x="803" y="291" key="refactoring.ChangeSignatureDialog" timestamp="1618241156231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="803" y="291" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1618241156231" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1620964422335">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1624912695163">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1620964422335" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1624553716630">
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624912695163" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1624917684260">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624553716630" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624917684260" />
   </component>
 </project>

@@ -18,6 +18,7 @@ export class Product {
         this.category = category;
         this.availableQuantity = availableQuantity;
         this.defaultPhotoUrl = defaultPhotoUrl;
+        this.brand = brand;
         this.listPrice = listPrice;
         this.standardPrice = standardPrice;
     }

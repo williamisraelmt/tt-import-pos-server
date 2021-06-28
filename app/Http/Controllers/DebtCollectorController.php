@@ -108,7 +108,7 @@ class DebtCollectorController extends Controller
             $valid['search'] ?? null,
             $valid['sort_by'] ?? null
         );
-        $debt_collectors = DebtCollector::query()->limit($grid->getLimit())->offset($grid->getOffset());
+        $debt_collectors = DebtCollector::query();
         if ($grid->getSearch() !== null) {
             $debt_collectors = $debt_collectors->whereRaw("lower(concat(CONVERT(id, char), name, CONVERT(commission, char))) like lower('%{$grid->getSearch()}%')");
         }
@@ -120,8 +120,8 @@ class DebtCollectorController extends Controller
             $debt_collectors->orderByRaw('id, name');
         }
         return response()->json([
-            "total" => DB::table('debt_collectors')->select('id')->count(),
-            "data" => $debt_collectors->get()
+            "total" => $debt_collectors->count(),
+            "data" => $debt_collectors->limit($grid->getLimit())->offset($grid->getOffset())->get()
         ]);
     }
 

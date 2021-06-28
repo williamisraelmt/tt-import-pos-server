@@ -48,8 +48,6 @@ class PaymentController extends Controller
             ->leftJoin('debt_collectors as dc', 'dc.id', '=', 'p.debt_collector_id')
             ->join('payment_invoices as pi', 'pi.payment_id', '=', 'p.id')
             ->join('invoices as i', 'i.id', '=', 'pi.invoice_id')
-            ->limit($grid->getLimit())
-            ->offset($grid->getOffset())
             ->selectRaw("
                 p.id as payment_id,
                 p.name as payment_name,
@@ -59,16 +57,7 @@ class PaymentController extends Controller
                 p.debt_collector_id as debt_collector_id,
                 dc.name as debt_collector_name,
                 GROUP_CONCAT(i.display_name ORDER BY i.id  SEPARATOR ',') as invoices
-                ")
-            ->groupByRaw("
-                payment_id,
-                payment_name,
-                payment_amount,
-                customer_id,
-                customer_name,
-                debt_collector_id,
-                debt_collector_name
-            ");
+                ");
         if ($grid->getSearch() !== null) {
             $payments = $payments->whereRaw("lower(concat(
             CONVERT(p.id, char),
@@ -89,12 +78,24 @@ class PaymentController extends Controller
             $payments->orderByRaw('payment_id DESC, payment_name, payment_amount, customer_id, customer_name, debt_collector_id, debt_collector_name, invoices');
         }
         return response()->json([
-            "total" => DB::table('payments')->select('id')->count(),
-            "data" => $payments->get()->map(function($record){
-                $invoices = $record->invoices;
-                $record->invoices = explode(",", $invoices);
-                return $record;
-            })
+            "total" => $payments->count(),
+            "data" => $payments
+                ->limit($grid->getLimit())
+                ->offset($grid->getOffset())
+                ->groupByRaw("
+                payment_id,
+                payment_name,
+                payment_amount,
+                customer_id,
+                customer_name,
+                debt_collector_id,
+                debt_collector_name")
+                ->get()
+                ->map(function ($record) {
+                    $invoices = $record->invoices;
+                    $record->invoices = explode(",", $invoices);
+                    return $record;
+                })
         ]);
     }
 

@@ -24,9 +24,10 @@ Route::middleware(['auth', 'role:customer|admin'])->group(function(){
 
 });
 
-Route::prefix('product')->group(function () {
-    Route::get('', 'ProductController@showCatalog');
+Route::prefix('catalog')->group(function () {
+    Route::get('exists', 'CatalogController@productExists');
     Route::get('photo/{productId}/{path}', 'ProductController@showPhoto');
+    Route::get('', 'CatalogController@showCatalog');
 });
 
 Route::middleware('role:admin')->group(function(){
@@ -60,6 +61,7 @@ Route::middleware('role:admin')->group(function(){
             Route::put('', 'DebtCollectorController@store');
         });
 
+
         Route::prefix('invoice')->group(function () {
             Route::get('', 'InvoiceController@showAll');
         });
@@ -77,7 +79,29 @@ Route::middleware('role:admin')->group(function(){
             Route::get('photos/{productId}', 'ProductController@showPhotos');
             Route::post('photos/{productId}', 'ProductController@uploadPhoto');
             Route::delete('photos/{productId}/{photoId}', 'ProductController@deletePhoto');
+            Route::get('{productId}', 'ProductController@show');
+            Route::put('{productId}', 'ProductController@store');
             Route::get('', 'ProductController@showAll');
+        });
+
+        Route::prefix('product-brand')->group(function () {
+            Route::get('list', 'ProductBrandController@showList');
+        });
+
+        Route::prefix('product-category')->group(function () {
+            Route::get('list', 'ProductCategoryController@showList');
+        });
+
+        Route::prefix('product-department')->group(function () {
+            Route::get('list', 'ProductDepartmentController@showList');
+        });
+
+        Route::prefix('product-model')->group(function () {
+            Route::get('list', 'ProductModelController@showList');
+        });
+
+        Route::prefix('product-type')->group(function () {
+            Route::get('list', 'ProductTypeController@showList');
         });
 
         Route::prefix('customer')->group(function () {

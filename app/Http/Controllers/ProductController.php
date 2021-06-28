@@ -32,50 +32,6 @@ class ProductController extends Controller
         return view('admin.product');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function showCatalog(Request $request) {
-
-        $valid = $this->validate($request, [
-            "limit" => "numeric|nullable",
-            "offset" => "numeric|nullable",
-            "search" => "string|nullable",
-            "sort_by" => "array|nullable"
-        ]);
-
-        $grid = new Grid(
-            $valid['limit'] ?? null,
-            $valid['offset'] ?? null,
-            $valid['search'] ?? null,
-            $valid['sort_by'] ?? null
-        );
-
-        $products = DB::table(Product::getTableName() . " as p")
-            ->leftJoin(ProductBrand::getTableName() . " as pb", "pb.id", "=", "p.product_brand_id")
-            ->orderBy('p.name')
-            ->whereRaw("p.status = '1'");
-
-        if ($grid->getSearch() !== null) {
-            $search = addslashes($grid->getSearch());
-            $products = $products->whereRaw("concat(CONVERT(p.id,char), p.name, p.default_code, pb.name) like '%{$search}%'");
-        }
-
-        return response()->json([
-            "total" => $products->count(),
-            "data" => $products
-                ->limit($grid->getLimit())
-                ->offset($grid->getOffset())
-                ->selectRaw("p.id, p.name, p.status, p.default_code, p.available_quantity, p.default_photo_url, pb.name as brand")
-                ->get()
-                ->toArray()
-        ]);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -238,6 +194,45 @@ class ProductController extends Controller
             DB::rollBack();
             return response()->json([
                 "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function show(Request $request, int $productId)
+    {
+        $product = Product::with('productCategory', 'productBrand', 'productType', 'productDepartment')->findOrFail($productId);
+        return response()->json([
+            "total" => 1,
+            "data" => $product
+        ]);
+    }
+
+    public function store(Request $request, int $productId)
+    {
+        $product = Product::findOrFail($productId);
+        $valid = $this->validate($request, [
+            'status' => 'boolean',
+            'product_brand.id' => 'nullable|numeric|exists:product_brands,id',
+            'product_category.id' => 'nullable|numeric|exists:product_categories,id',
+            'product_type.id' => 'nullable|numeric|exists:product_types,id',
+            'product_department_id' => 'nullable|numeric|exists:product_departments,id'
+        ]);
+        try {
+            DB::beginTransaction();
+            $product->product_brand_id = $valid['product_brand']['id'] ?? null;
+            $product->product_category_id = $valid['product_category']['id'] ?? null;
+            $product->product_type_id = $valid['product_type']['id'] ?? null;
+            $product->product_department_id = $valid['product_department']['id'] ?? null;
+            $product->status = $valid['status'] ?? true;
+            $product->save();
+            DB::commit();
+            return response()->json([
+                "message" => "ok"
+            ]);
+        } catch (\Exception $e){
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
             ], 500);
         }
     }

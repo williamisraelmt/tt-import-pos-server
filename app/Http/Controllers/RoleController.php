@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class RoleController extends Controller
      * Display the specified resource.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function showList(Request $request)

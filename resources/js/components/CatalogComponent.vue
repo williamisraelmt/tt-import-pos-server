@@ -8,7 +8,7 @@
                         <div class="input-group w-100">
                             <input type="text" class="form-control" placeholder="Search…"
                                    aria-label="Search in website" v-model="grid.search">
-                            <button class="btn btn-warning input-group-append">
+                            <button class="btn btn-primary input-group-append">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon m-0" width="24" height="24"
                                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                      stroke-linecap="round" stroke-linejoin="round">
@@ -69,7 +69,7 @@
 <!--                                                    <h2 class="page-title">-->
 <!--                                                        Search results-->
 <!--                                                    </h2>-->
-                                                    <div class="text-muted mt-1">Mostrando <b>{{total > grid.limit ? grid.limit : total}}</b> de <b>{{total}}</b> entradas.</div>
+                                                    <div class="text-muted mt-1">Mostrando <b>{{total > grid.limit ? grid.limit : total}}</b> de <b>{{total}}</b> artículos.</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -81,12 +81,12 @@
                                                     <a href="#" v-if="product.defaultPhotoUrl">
                                                         <img class="p-3 pr-0"
                                                              style="height:150px"
-                                                            v-bind:src="`/api/product/photo/${product.id}/${product.defaultPhotoUrl}`"
+                                                            v-bind:src="`/api/catalog/photo/${product.id}/${product.defaultPhotoUrl}`"
                                                         ></a>
                                                 </div>
                                                 <div>
                                                     <div class="card-body">
-                                                        <h3 class="card-title"><router-link v-bind:to="`/catalog/${product.id}`">{{ product.name }}</router-link></h3>
+                                                        <h3 class="card-title"><router-link v-bind:to="`/catalog/detail?product_id=${product.id}`">{{ product.name }}</router-link></h3>
                                                         <ul class="text-muted small lh-base list-unstyled">
                                                             <li>Referencia: {{product.defaultCode}}</li>
                                                             <li>Marca: {{ product.brand }}</li>
@@ -100,15 +100,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="d-flex">
-                                        <div class="text-muted">
+                                        <div class="text-muted text-muted d-none d-md-block">
                                             Ver
                                             <div class="mx-2 d-inline-block">
                                                 <input type="text" class="form-control" value="8" size="3"
                                                        v-model="grid.limit">
                                             </div>
-                                            entradas
+                                            artículos
                                         </div>
-                                        <v-pagination class="m-0" v-model="currentPage"
+                                        <v-pagination class="m-0 justify-content-md-end flex-grow-1" v-model="currentPage"
                                                       :classes="bootstrapPaginationClasses"
                                                       :page-count="pageTotal"></v-pagination>
                                     </div>
@@ -138,13 +138,12 @@
 <script>
 
 import {debounce} from "lodash";
-import ProductPhotoModalComponent from "./ProductPhotoModalComponent";
 import {Grid} from "../models/Grid";
 import {Product} from "../models/Product";
 import {CONSTS} from "../consts";
 import ShopHeaderComponent from "./ShopHeaderComponent";
 
-const ENDPOINT = CONSTS.HOST + 'product';
+const ENDPOINT = CONSTS.HOST + 'catalog';
 
 export default {
     components: {ShopHeaderComponent},
@@ -173,19 +172,19 @@ export default {
     watch: {
         grid: {
             handler: debounce(function (val) {
-                this.getProducts();
+                this.getCatalog();
             }, 800),
             deep: true
         },
         currentPage: {
             handler: function (val) {
-                this.getProducts();
+                this.getCatalog();
             },
             deep: true
         },
     },
     methods: {
-        getProducts: function () {
+        getCatalog: function () {
             this.loading = true;
             const grid = new Grid(
                 this.grid.limit,
@@ -219,7 +218,7 @@ export default {
         }
     },
     mounted() {
-        this.getProducts();
+        this.getCatalog();
     },
 }
 </script>

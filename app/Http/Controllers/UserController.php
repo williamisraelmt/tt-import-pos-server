@@ -144,7 +144,7 @@ class UserController extends Controller
             $valid['search'] ?? null,
             $valid['sort_by'] ?? null
         );
-        $users = User::query()->limit($grid->getLimit())->offset($grid->getOffset());
+        $users = User::query();
         if ($grid->getSearch() !== null) {
             $users = $users->whereRaw("lower(concat(CONVERT(id, char), name, email, full_name)) like lower('%{$grid->getSearch()}%')");
         }
@@ -156,7 +156,7 @@ class UserController extends Controller
             $users->orderByRaw('id, full_name, name, email');
         }
         return response()->json([
-            "total" => DB::table('users')->select('id')->count(),
+            "total" => $users->limit($grid->getLimit())->offset($grid->getOffset())->count(),
             "data" => $users->get()
         ]);
     }

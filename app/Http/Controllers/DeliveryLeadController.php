@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DeliveryLead;
 use App\DeliveryLeadDetail;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class DeliveryLeadController extends Controller
      * Display the specified resource.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function showAll(Request $request)
@@ -47,8 +48,7 @@ class DeliveryLeadController extends Controller
             ->join('delivery_lead_details as dld', 'dld.delivery_lead_id', '=', 'dl.id')
             ->join('invoices as i', 'i.id', '=', 'dld.invoice_id')
             ->join('customers as c', 'c.id', '=', 'i.customer_id')
-            ->selectRaw("dl.id, c.name as customer_name, GROUP_CONCAT(i.display_name SEPARATOR ',') as invoices, dl.package_quantity, dl.created_at")
-            ->groupByRaw("dl.id, c.name, dl.package_quantity, dl.created_at");
+            ->selectRaw("dl.id, c.name as customer_name, GROUP_CONCAT(i.display_name SEPARATOR ',') as invoices, dl.package_quantity, dl.created_at");
         if ($grid->getSearch() !== null) {
             $delivery_leads = $delivery_leads->whereRaw("lower(concat(CONVERT(dl.id, char), c.name, i.display_name, concat(CONVERT(dl.package_quantity, char)))) like lower('%{$grid->getSearch()}%')");
         }
@@ -57,15 +57,21 @@ class DeliveryLeadController extends Controller
                 return "{$sortBy[0]} {$sortBy[1]}";
             })->implode(","));
         } else {
-            $delivery_leads->orderByRaw('dl.id DESC');
+            $delivery_leads->orderByRaw('dl.id');
         }
+
         return response()->json([
             "total" => $delivery_leads->count(),
-            "data" => $delivery_leads->get()->map(function($record){
-                $invoices = $record->invoices;
-                $record->invoices = explode(",", $invoices);
-                return $record;
-            })
+            "data" => $delivery_leads
+                ->groupByRaw("dl.id, c.name, dl.package_quantity, dl.created_at")
+                ->limit($grid->getLimit())
+                ->offset($grid->getOffset())
+                ->get()
+                ->map(function ($record) {
+                    $invoices = $record->invoices;
+                    $record->invoices = explode(",", $invoices);
+                    return $record;
+                })
         ]);
     }
 
@@ -85,7 +91,7 @@ class DeliveryLeadController extends Controller
                 return DeliveryLead::with('deliveryLeadDetails.invoice', 'customer')->find($leadId);
             })->toArray();
 
-        if (empty($leads)){
+        if (empty($leads)) {
             return abort(404);
         }
 
@@ -145,7 +151,7 @@ class DeliveryLeadController extends Controller
                 'count' => 1,
                 'message' => "ok"
             ]);
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'data' => [],
                 'count' => 0,

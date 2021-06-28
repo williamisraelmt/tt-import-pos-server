@@ -100,7 +100,7 @@
                                         <button class="btn btn-white btn-sm dropdown-toggle align-text-top"
                                                 data-boundary="viewport" data-toggle="dropdown">Acciones</button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                          <a class="dropdown-item" href="#" @click="editProduct()">
+                                          <a class="dropdown-item" href="#" @click="editProduct(product.id)">
                                             Editar
                                           </a>
                                           <a class="dropdown-item" href="#" @click="uploadPhotos(product)">
@@ -149,6 +149,7 @@ import {CONSTS} from '../consts';
 import {Grid} from "../models/Grid";
 import {Product} from "../models/Product";
 import ProductPhotoModalComponent from "./ProductPhotoModalComponent";
+import StoreProductModalComponent from "./StoreProductModalComponent";
 
 
 const ENDPOINT = CONSTS.HOST + 'product';
@@ -239,8 +240,18 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
-        editProduct: function(productId) {
-
+        editProduct: function(selectedProductId) {
+            this.$modal.show(StoreProductModalComponent, {
+                selectedProductId
+            }, {
+                width: '60%',
+                height: 'auto',
+                clickToClose: false
+            }, {
+                'closed': () => {
+                    this.getProducts();
+                }
+            })
         },
         // updateStatus: function (productId, status) {
         //     axios

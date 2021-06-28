@@ -47,14 +47,11 @@ export default {
                 .get(LOGGED_ENDPOINT)
                 .then(response => {
                     this.user = response.data.data;
-                    console.log(this.user, 1);
                 })
                 .catch(error => {
                     this.user = null;
-                    console.log(this.user, 2);
                 })
                 .finally(() => {
-                    console.log(this.user, 3);
                     this.$emit('user-changed', this.user);
                 })
 
