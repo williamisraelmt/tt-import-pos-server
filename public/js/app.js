@@ -2217,6 +2217,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -88907,67 +88912,68 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "d-sm-flex d-md-none" }, [
-                          _vm.currentPage !== 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-white",
-                                  staticStyle: { width: "49%" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.paginate(_vm.currentPage - 1)
+                          _c("div", { staticClass: "flex-grow-1" }, [
+                            _vm.currentPage !== 1
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-white w-100 mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.paginate(_vm.currentPage - 1)
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "Anterior\n                                    "
-                                  )
-                                ]
-                              )
-                            : _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-dark disabled",
-                                  staticStyle: { width: "49.55%" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Anterior\n                                    "
-                                  )
-                                ]
-                              ),
+                                  },
+                                  [
+                                    _vm._v(
+                                      "Anterior\n                                        "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-outline-dark disabled w-100"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Anterior\n                                        "
+                                    )
+                                  ]
+                                )
+                          ]),
                           _vm._v(" "),
-                          _vm.currentPage !== _vm.pageTotal
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info",
-                                  staticStyle: { width: "49%" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.paginate(_vm.currentPage + 1)
+                          _c("div", { staticClass: "flex-grow-1" }, [
+                            _vm.currentPage !== _vm.pageTotal
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-info w-100",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.paginate(_vm.currentPage + 1)
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "Siguiente\n                                    "
-                                  )
-                                ]
-                              )
-                            : _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info disabled",
-                                  staticStyle: { width: "49.55%" }
-                                },
-                                [
-                                  _vm._v(
-                                    "Siguiente\n                                    "
-                                  )
-                                ]
-                              )
+                                  },
+                                  [
+                                    _vm._v(
+                                      "Siguiente\n                                        "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-info disabled w-100"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Siguiente\n                                        "
+                                    )
+                                  ]
+                                )
+                          ])
                         ])
                       ])
                     ])

@@ -135,18 +135,23 @@
                                 </div>
                                 <div class="row">
                                     <div class="d-sm-flex d-md-none">
-                                        <button class="btn btn-white" style="width: 49%;" v-if="currentPage !== 1"
-                                                v-on:click="paginate(currentPage - 1)">Anterior
-                                        </button>
-                                        <button class="btn btn-outline-dark disabled" style="width: 49.55%;" v-else>
-                                            Anterior
-                                        </button>
-                                        <button class="btn btn-info" style="width: 49%;"
-                                                v-if="currentPage !== pageTotal"
-                                                v-on:click="paginate(currentPage + 1)">Siguiente
-                                        </button>
-                                        <button class="btn btn-info disabled" style="width: 49.55%;" v-else>Siguiente
-                                        </button>
+                                        <div class="flex-grow-1">
+                                            <button class="btn btn-white w-100 mr-1"" v-if="currentPage !== 1"
+                                                    v-on:click="paginate(currentPage - 1)">Anterior
+                                            </button>
+                                            <button class="btn btn-outline-dark disabled w-100" v-else>
+                                                Anterior
+                                            </button>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <button class="btn btn-info w-100"
+                                                    v-if="currentPage !== pageTotal"
+                                                    v-on:click="paginate(currentPage + 1)">Siguiente
+                                            </button>
+                                            <button class="btn btn-info disabled w-100" v-else>
+                                                Siguiente
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
