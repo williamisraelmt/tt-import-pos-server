@@ -2393,6 +2393,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2418,6 +2451,7 @@ var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_1__["CONSTS"].HOST + 'catalog/pr
     this.productId = this.$route['query']['product_id'];
     this.getProduct(this.productId);
     this.loadCatalogUsingRouteParameters();
+    console.log(this.$route);
   },
   methods: {
     getProduct: function getProduct(productId) {
@@ -88731,7 +88765,11 @@ var render = function() {
                                           ),
                                           _c("b", [_vm._v(_vm._s(_vm.total))]),
                                           _vm._v(
-                                            " artículos.\n                                                "
+                                            " artículos, página " +
+                                              _vm._s(_vm.currentPage) +
+                                              " de " +
+                                              _vm._s(_vm.pageTotal) +
+                                              ".\n                                                "
                                           )
                                         ]
                                       )
@@ -88911,7 +88949,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "d-sm-flex d-md-none" }, [
+                        _c("div", { staticClass: "d-flex d-md-none" }, [
                           _c(
                             "div",
                             {
@@ -88936,7 +88974,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "Anterior\n                                        "
+                                        "Atrás\n                                        "
                                       )
                                     ]
                                   )
@@ -88944,11 +88982,11 @@ var render = function() {
                                     "button",
                                     {
                                       staticClass:
-                                        "btn btn-outline-dark disabled w-100"
+                                        "btn btn-ghost-dark disabled w-100"
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                            Anterior\n                                        "
+                                        "\n                                            Atrás\n                                        "
                                       )
                                     ]
                                   )
@@ -88976,7 +89014,8 @@ var render = function() {
                               : _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-info disabled w-100"
+                                    staticClass:
+                                      "btn btn-ghost-info disabled w-100"
                                   },
                                   [
                                     _vm._v(
@@ -89146,12 +89185,63 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.product
-        ? _c("div", { staticClass: "content pt-0" }, [
-            _c("div", { staticClass: "page-wrapper" }, [
-              _c("div", { staticClass: "page-body" }, [
-                _c("div", { staticClass: "container-xl" }, [
-                  _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "content pt-0" }, [
+        _c("div", { staticClass: "page-wrapper" }, [
+          _c("div", { staticClass: "page-body" }, [
+            _c("div", { staticClass: "container-xl" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "page-header d-print-none mb-1 mt-0" },
+                    [
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("div", { staticClass: "text-muted mt-1" }, [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "icon",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  width: "24",
+                                  height: "24",
+                                  viewBox: "0 0 24 24",
+                                  "stroke-width": "2",
+                                  stroke: "currentColor",
+                                  fill: "none",
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    stroke: "none",
+                                    d: "M0 0h24v24H0z",
+                                    fill: "none"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" Volver")
+                          ])
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.product
+                ? _c("div", { staticClass: "row" }, [
                     _c(
                       "div",
                       { staticClass: "col-12 col-md-6" },
@@ -89230,16 +89320,42 @@ var render = function() {
                       ])
                     ])
                   ])
-                ])
-              ])
+                : _c("div", { staticClass: "row" }, [_vm._m(0)])
             ])
           ])
-        : _vm._e()
+        ])
+      ])
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-12 d-flex flex-column justify-content-center" },
+      [
+        _c("div", { staticClass: "empty" }, [
+          _c("div", { staticClass: "empty-img" }, [
+            _c("img", {
+              attrs: {
+                src:
+                  "https://preview.tabler.io/static/illustrations/undraw_printing_invoices_5r4r.svg",
+                height: "128",
+                alt: ""
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "empty-title" }, [_vm._v("Sin resultados")])
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

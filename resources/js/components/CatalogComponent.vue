@@ -71,7 +71,7 @@
                                                     <!--                                                    </h2>-->
                                                     <div class="text-muted mt-1">Mostrando
                                                         <b>{{ total > grid.limit ? grid.limit : total }}</b> de
-                                                        <b>{{ total }}</b> artículos.
+                                                        <b>{{ total }}</b> artículos, página {{ currentPage }} de {{ pageTotal }}.
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,13 +134,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="d-sm-flex d-md-none">
+                                    <div class="d-flex d-md-none">
                                         <div class="flex-grow-1" style="margin-right: .25rem!important">
                                             <button class="btn btn-white w-100" v-if="currentPage !== 1"
-                                                    v-on:click="paginate(currentPage - 1)">Anterior
+                                                    v-on:click="paginate(currentPage - 1)">Atrás
                                             </button>
-                                            <button class="btn btn-outline-dark disabled w-100" v-else>
-                                                Anterior
+                                            <button class="btn btn-ghost-dark disabled w-100" v-else>
+                                                Atrás
                                             </button>
                                         </div>
                                         <div class="flex-grow-1">
@@ -148,7 +148,7 @@
                                                     v-if="currentPage !== pageTotal"
                                                     v-on:click="paginate(currentPage + 1)">Siguiente
                                             </button>
-                                            <button class="btn btn-info disabled w-100" v-else>
+                                            <button class="btn btn-ghost-info disabled w-100" v-else>
                                                 Siguiente
                                             </button>
                                         </div>
