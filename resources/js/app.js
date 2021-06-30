@@ -13,12 +13,11 @@ require('./bootstrap');
 import VueJsModal from 'vue-js-modal';
 import Multiselect from 'vue-multiselect'
 import VueConfirmDialog from 'vue-confirm-dialog';
-import 'viewerjs/dist/viewer.css'
-import Viewer from 'v-viewer';
 import VTooltip from 'v-tooltip'
 import VueSelectImage from 'vue-select-image'
 import Vue2Filters from 'vue2-filters'
 import VueRouter from 'vue-router'
+import Paginate from 'vuejs-paginate'
 
 window.Vue = require('vue');
 
@@ -67,15 +66,11 @@ Vue.component('user-settings-component', require('./components/UserSettingsCompo
 
 Vue.component('v-pagination', require('vue-plain-pagination'));
 
+Vue.component('paginate', Paginate);
+
 Vue.use(VueJsModal);
 
 Vue.use(VueConfirmDialog);
-
-Vue.use(Viewer, {
-    defaultOptions: {
-        zIndex: 9999
-    }
-});
 
 Vue.use(VTooltip);
 
@@ -99,13 +94,22 @@ var filter = function (text, length, clamp) {
 Vue.filter('truncate', filter);
 
 const routes = [
-    {path: '/catalog', component: CatalogComponent},
     {
+        name: 'catalog',
+        path: '/catalog',
+        component: CatalogComponent
+    },
+    {
+        name: 'catalog-detail',
         path: '/catalog/detail',
         component: CatalogDetailComponent,
         beforeEnter: require('./guards/product-exists').default
     },
-    {path: '/', component: CatalogComponent},
+    {
+        name: 'default',
+        path: '/',
+        component: CatalogComponent
+    },
 ]
 
 /**

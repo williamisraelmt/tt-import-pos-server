@@ -7,8 +7,8 @@
                     <div class="container-xl">
                         <div class="input-group w-100">
                             <input type="text" class="form-control" placeholder="Search…"
-                                   aria-label="Search in website" v-model="grid.search">
-                            <button class="btn btn-primary input-group-append">
+                                   aria-label="Search in website" v-model="search">
+                            <button class="btn btn-primary input-group-append" v-on:click="paginate(1)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon m-0" width="24" height="24"
                                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                      stroke-linecap="round" stroke-linejoin="round">
@@ -28,48 +28,51 @@
 
                     <div class="container-xl">
                         <div class="row">
-<!--                            <div class="col-3">-->
-<!--                                <form action="" method="get">-->
-<!--                                    <div class="subheader mb-2">Marcas</div>-->
-<!--                                    <div class="mb-3">-->
-<!--                                        <label class="form-check mb-1">-->
-<!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
-<!--                                                   value="business" checked="">-->
-<!--                                            <span class="form-check-label">VINI</span>-->
-<!--                                        </label>-->
-<!--                                        <label class="form-check mb-1">-->
-<!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
-<!--                                                   value="evening">-->
-<!--                                            <span class="form-check-label">TG77</span>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
+                            <!--                            <div class="col-3">-->
+                            <!--                                <form action="" method="get">-->
+                            <!--                                    <div class="subheader mb-2">Marcas</div>-->
+                            <!--                                    <div class="mb-3">-->
+                            <!--                                        <label class="form-check mb-1">-->
+                            <!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
+                            <!--                                                   value="business" checked="">-->
+                            <!--                                            <span class="form-check-label">VINI</span>-->
+                            <!--                                        </label>-->
+                            <!--                                        <label class="form-check mb-1">-->
+                            <!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
+                            <!--                                                   value="evening">-->
+                            <!--                                            <span class="form-check-label">TG77</span>-->
+                            <!--                                        </label>-->
+                            <!--                                    </div>-->
 
-<!--                                    <div class="subheader mb-2">Categorías</div>-->
-<!--                                    <div>-->
-<!--                                        <label class="form-check mb-1">-->
-<!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
-<!--                                                   value="business" checked="">-->
-<!--                                            <span class="form-check-label">CAT 1</span>-->
-<!--                                        </label>-->
-<!--                                        <label class="form-check mb-1">-->
-<!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
-<!--                                                   value="evening">-->
-<!--                                            <span class="form-check-label">CAT 2</span>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
+                            <!--                                    <div class="subheader mb-2">Categorías</div>-->
+                            <!--                                    <div>-->
+                            <!--                                        <label class="form-check mb-1">-->
+                            <!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
+                            <!--                                                   value="business" checked="">-->
+                            <!--                                            <span class="form-check-label">CAT 1</span>-->
+                            <!--                                        </label>-->
+                            <!--                                        <label class="form-check mb-1">-->
+                            <!--                                            <input type="checkbox" class="form-check-input" name="form-tags[]"-->
+                            <!--                                                   value="evening">-->
+                            <!--                                            <span class="form-check-label">CAT 2</span>-->
+                            <!--                                        </label>-->
+                            <!--                                    </div>-->
 
-<!--                                </form>-->
-<!--                            </div>-->
+                            <!--                                </form>-->
+                            <!--                            </div>-->
                             <div class="col-12" v-if="!loading && total">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="page-header d-print-none mb-1 mt-0">
                                             <div class="row align-items-center">
                                                 <div class="col">
-<!--                                                    <h2 class="page-title">-->
-<!--                                                        Search results-->
-<!--                                                    </h2>-->
-                                                    <div class="text-muted mt-1">Mostrando <b>{{total > grid.limit ? grid.limit : total}}</b> de <b>{{total}}</b> artículos.</div>
+                                                    <!--                                                    <h2 class="page-title">-->
+                                                    <!--                                                        Search results-->
+                                                    <!--                                                    </h2>-->
+                                                    <div class="text-muted mt-1">Mostrando
+                                                        <b>{{ total > grid.limit ? grid.limit : total }}</b> de
+                                                        <b>{{ total }}</b> artículos.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -81,14 +84,19 @@
                                                     <a href="#" v-if="product.defaultPhotoUrl">
                                                         <img class="p-3 pr-0"
                                                              style="height:150px"
-                                                            v-bind:src="`/api/catalog/photo/${product.id}/${product.defaultPhotoUrl}`"
+                                                             v-bind:src="`/api/catalog/photo/${product.id}/${product.defaultPhotoUrl}`"
                                                         ></a>
                                                 </div>
                                                 <div>
                                                     <div class="card-body">
-                                                        <h3 class="card-title"><router-link v-bind:to="`/catalog/detail?product_id=${product.id}`">{{ product.name }}</router-link></h3>
+                                                        <h3 class="card-title">
+                                                            <router-link
+                                                                v-bind:to="`/catalog/detail?product_id=${product.id}&search=${search}`">
+                                                                {{ product.name }}
+                                                            </router-link>
+                                                        </h3>
                                                         <ul class="text-muted small lh-base list-unstyled">
-                                                            <li>Referencia: {{product.defaultCode}}</li>
+                                                            <li>Referencia: {{ product.defaultCode }}</li>
                                                             <li>Marca: {{ product.brand }}</li>
                                                         </ul>
                                                     </div>
@@ -99,18 +107,46 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="d-flex">
-                                        <div class="text-muted text-muted d-none d-md-block">
+                                    <div class="d-none d-md-flex">
+                                        <div class="text-muted d-flex align-items-center">
                                             Ver
-                                            <div class="mx-2 d-inline-block">
+                                            <div class="mx-2">
                                                 <input type="text" class="form-control" value="8" size="3"
                                                        v-model="grid.limit">
                                             </div>
                                             artículos
                                         </div>
-                                        <v-pagination class="m-0 justify-content-md-end flex-grow-1" v-model="currentPage"
-                                                      :classes="bootstrapPaginationClasses"
-                                                      :page-count="pageTotal"></v-pagination>
+                                        <div class="m-0 justify-content-md-end flex-grow-1 pagination m-0 ml-auto">
+                                            <paginate
+                                                v-model="currentPage"
+                                                :page-count="pageTotal"
+                                                :prev-link-class="'page-link pagination-link--active'"
+                                                :next-link-class="'page-link pagination-link--active'"
+                                                :page-link-class="'page-link pagination-link--active'"
+                                                :page-range="grid.limit"
+                                                :click-handler="paginate"
+                                                :prev-text="'Anterior'"
+                                                :next-text="'Siguiente'"
+                                                :container-class="'pagination m-0 ml-auto'"
+                                                :page-class="'page-item'">
+                                            </paginate>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="d-sm-flex d-md-none">
+                                        <button class="btn btn-white" style="width: 49%;" v-if="currentPage !== 1"
+                                                v-on:click="paginate(currentPage - 1)">Anterior
+                                        </button>
+                                        <button class="btn btn-outline-dark disabled" style="width: 49.55%;" v-else>
+                                            Anterior
+                                        </button>
+                                        <button class="btn btn-info" style="width: 49%;"
+                                                v-if="currentPage !== pageTotal"
+                                                v-on:click="paginate(currentPage + 1)">Siguiente
+                                        </button>
+                                        <button class="btn btn-info disabled" style="width: 49.55%;" v-else>Siguiente
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -137,11 +173,12 @@
 
 <script>
 
-import {debounce} from "lodash";
+import {debounce, isNull} from "lodash";
 import {Grid} from "../models/Grid";
 import {Product} from "../models/Product";
 import {CONSTS} from "../consts";
 import ShopHeaderComponent from "./ShopHeaderComponent";
+import {parseCatalogRouteParameters} from '../helpers/parse-catalog-route-parameters';
 
 const ENDPOINT = CONSTS.HOST + 'catalog';
 
@@ -157,16 +194,19 @@ export default {
                 button: 'page-link'
             },
             products: [],
-            pageTotal: 0,
-            total: 0,
-            currentPage: 1,
             grid: {
                 limit: 10,
                 sortBy: [],
-                search: "",
             },
             loading: true,
-            errored: false
+            errored: false,
+
+            search: "",
+
+            pageTotal: 0,
+            total: 0,
+            currentPage: null
+
         }
     },
     watch: {
@@ -176,21 +216,32 @@ export default {
             }, 800),
             deep: true
         },
-        currentPage: {
-            handler: function (val) {
-                this.getCatalog();
+        $route: {
+            handler: function (to, from) {
+                this.loadCatalogUsingRouteParameters()
             },
             deep: true
-        },
+        }
     },
     methods: {
+        paginate: function (val) {
+            this.$router.push({path: '/catalog', query: {search: this.search, currentPage: val.toString()}})
+        },
+        loadCatalogUsingRouteParameters: function () {
+            const params = parseCatalogRouteParameters(this.$route.query);
+            this.search = params.search;
+            if (this.currentPage !== params.currentPage) {
+                this.currentPage = params.currentPage;
+            }
+            this.getCatalog();
+        },
         getCatalog: function () {
             this.loading = true;
             const grid = new Grid(
                 this.grid.limit,
                 this.grid.limit * (this.currentPage - 1),
                 this.grid.sortBy,
-                this.grid.search
+                this.search
             );
             axios
                 .get(ENDPOINT + grid.toHttpQueryString())
@@ -211,14 +262,13 @@ export default {
                     this.pageTotal = Math.ceil((this.total / grid.limit) || 0);
                 })
                 .catch(error => {
-                    console.log(error);
                     this.errored = true
                 })
                 .finally(() => this.loading = false)
         }
     },
     mounted() {
-        this.getCatalog();
+        this.loadCatalogUsingRouteParameters();
     },
 }
 </script>

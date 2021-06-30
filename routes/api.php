@@ -26,6 +26,7 @@ Route::middleware(['auth', 'role:customer|admin'])->group(function(){
 
 Route::prefix('catalog')->group(function () {
     Route::get('exists', 'CatalogController@productExists');
+    Route::get('product/{productId}', 'CatalogController@show');
     Route::get('photo/{productId}/{path}', 'ProductController@showPhoto');
     Route::get('', 'CatalogController@showCatalog');
 });

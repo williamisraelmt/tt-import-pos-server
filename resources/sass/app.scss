@@ -1,10 +1,10 @@
 @import '~@tabler/core/dist/css/tabler.min.css';
 @import '~filepond/dist/filepond.min.css';
 @import '~filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';// Create FilePond component
-@import '~viewerjs/dist/viewer.css';
 @import '~vue-select-image/dist/vue-select-image.css';
 @import '~vue2-daterange-picker/dist/vue2-daterange-picker.css';
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import '~vue-inner-image-zoom/lib/vue-inner-image-zoom.css';
 
 .multiselect{
     min-height: 36px;

@@ -7,8 +7,7 @@ export default (to, from, next) => {
         next('/');
     }
     axios
-        .get(`${CONSTS.HOST}/catalog/exists?product_id=${this.$route.params['id']}`)
+        .get(`${CONSTS.HOST}catalog/exists?product_id=${query['product_id']}`)
         .then(() => next())
-        .catch(() => next('/'))
-    return next();
+        .catch(() => next('/catalog'))
 }

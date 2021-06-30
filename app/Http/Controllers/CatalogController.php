@@ -29,7 +29,8 @@ class CatalogController extends Controller
         return view('catalog.catalog');
     }
 
-    public function productExists(Request $request){
+    public function productExists(Request $request)
+    {
         $this->validate($request, [
             'product_id' => 'numeric|required|exists:products,id'
         ]);
@@ -44,7 +45,8 @@ class CatalogController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showCatalog(Request $request) {
+    public function showCatalog(Request $request)
+    {
 
         $valid = $this->validate($request, [
             "limit" => "numeric|nullable",
@@ -81,4 +83,18 @@ class CatalogController extends Controller
         ]);
     }
 
+
+    public function show(Request $request, int $productId)
+    {
+        $product = Product::with(
+            'productCategory',
+            'productBrand',
+            'productType',
+            'productDepartment',
+            'productPhotos')->findOrFail($productId);
+        return response()->json([
+            "total" => 1,
+            "data" => $product
+        ]);
+    }
 }
