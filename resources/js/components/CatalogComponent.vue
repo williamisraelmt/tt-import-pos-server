@@ -71,7 +71,7 @@
                                                     <!--                                                    </h2>-->
                                                     <div class="text-muted mt-1">Mostrando
                                                         <b>{{ total > grid.limit ? grid.limit : total }}</b> de
-                                                        <b>{{ total }}</b> artículos, página {{ currentPage }} de {{ pageTotal }}.
+                                                        <b>{{ total }}</b> artículos, página <b>{{ currentPage }}</b> de <b>{{ pageTotal }}</b>.
                                                     </div>
                                                 </div>
                                             </div>

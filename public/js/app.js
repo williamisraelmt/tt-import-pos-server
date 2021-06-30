@@ -2425,7 +2425,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2451,7 +2450,6 @@ var ENDPOINT = _consts__WEBPACK_IMPORTED_MODULE_1__["CONSTS"].HOST + 'catalog/pr
     this.productId = this.$route['query']['product_id'];
     this.getProduct(this.productId);
     this.loadCatalogUsingRouteParameters();
-    console.log(this.$route);
   },
   methods: {
     getProduct: function getProduct(productId) {
@@ -88764,12 +88762,16 @@ var render = function() {
                                             " de\n                                                    "
                                           ),
                                           _c("b", [_vm._v(_vm._s(_vm.total))]),
+                                          _vm._v(" artículos, página "),
+                                          _c("b", [
+                                            _vm._v(_vm._s(_vm.currentPage))
+                                          ]),
+                                          _vm._v(" de "),
+                                          _c("b", [
+                                            _vm._v(_vm._s(_vm.pageTotal))
+                                          ]),
                                           _vm._v(
-                                            " artículos, página " +
-                                              _vm._s(_vm.currentPage) +
-                                              " de " +
-                                              _vm._s(_vm.pageTotal) +
-                                              ".\n                                                "
+                                            ".\n                                                "
                                           )
                                         ]
                                       )
@@ -89187,56 +89189,61 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "content pt-0" }, [
         _c("div", { staticClass: "page-wrapper" }, [
-          _c("div", { staticClass: "page-body" }, [
+          _c("div", { staticClass: "page-body mt-0" }, [
             _c("div", { staticClass: "container-xl" }, [
-              _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "row mb-3" }, [
                 _c("div", { staticClass: "col-sm-12" }, [
-                  _c(
-                    "div",
-                    { staticClass: "page-header d-print-none mb-1 mt-0" },
-                    [
-                      _c("div", { staticClass: "row align-items-center" }, [
-                        _c("div", { staticClass: "col" }, [
-                          _c("div", { staticClass: "text-muted mt-1" }, [
-                            _c(
-                              "svg",
-                              {
-                                staticClass: "icon",
-                                attrs: {
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                  width: "24",
-                                  height: "24",
-                                  viewBox: "0 0 24 24",
-                                  "stroke-width": "2",
-                                  stroke: "currentColor",
-                                  fill: "none",
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round"
-                                }
-                              },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    stroke: "none",
-                                    d: "M0 0h24v24H0z",
-                                    fill: "none"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1"
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(" Volver")
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
+                  _c("div", { staticClass: "text-muted small" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn-link cursor-pointer",
+                        on: {
+                          click: function($event) {
+                            return _vm.$router.back()
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon",
+                            staticStyle: { width: "1rem", height: "1rem" },
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              width: "24",
+                              height: "24",
+                              viewBox: "0 0 24 24",
+                              "stroke-width": "2",
+                              stroke: "currentColor",
+                              fill: "none",
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                stroke: "none",
+                                d: "M0 0h24v24H0z",
+                                fill: "none"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("path", {
+                              attrs: {
+                                d: "M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                                    Volver a resultados\n                                "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ]),
               _vm._v(" "),

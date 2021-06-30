@@ -24,27 +24,26 @@
         </div>
         <div class="content pt-0">
             <div class="page-wrapper">
-                <div class="page-body">
+                <div class="page-body mt-0">
                     <div class="container-xl">
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-sm-12">
-                                <div class="page-header d-print-none mb-1 mt-0">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!--                                                    <h2 class="page-title">-->
-                                            <!--                                                        Search results-->
-                                            <!--                                                    </h2>-->
-                                            <div class="text-muted mt-1"><!-- Download SVG icon from http://tabler-icons.io/i/arrow-back-up -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                     height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                     stroke="currentColor" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1"/>
-                                                </svg> Volver</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--                                                    <h2 class="page-title">-->
+                                <!--                                                        Search results-->
+                                <!--                                                    </h2>-->
+                                <div class="text-muted small">
+                                    <!-- Download SVG icon from http://tabler-icons.io/i/arrow-back-up -->
+                                    <a class="btn-link cursor-pointer" v-on:click="$router.back()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                             height="24" viewBox="0 0 24 24" stroke-width="2"
+                                             style="width: 1rem; height: 1rem;"
+                                             stroke="currentColor" fill="none" stroke-linecap="round"
+                                             stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M9 13l-4 -4l4 -4m-4 4h11a4 4 0 0 1 0 8h-1"/>
+                                        </svg>
+                                        Volver a resultados
+                                    </a></div>
                             </div>
                         </div>
                         <div class="row" v-if="product">
@@ -124,7 +123,6 @@ export default {
         this.productId = this.$route['query']['product_id'];
         this.getProduct(this.productId);
         this.loadCatalogUsingRouteParameters();
-        console.log(this.$route);
     },
     methods: {
         getProduct: function (productId) {
