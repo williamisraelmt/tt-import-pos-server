@@ -88912,37 +88912,48 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "d-sm-flex d-md-none" }, [
-                          _c("div", { staticClass: "flex-grow-1 mr-1" }, [
-                            _vm.currentPage !== 1
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-white w-100",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.paginate(_vm.currentPage - 1)
+                          _c(
+                            "div",
+                            {
+                              staticClass: "flex-grow-1",
+                              staticStyle: {
+                                "margin-right": ".25rem!important"
+                              }
+                            },
+                            [
+                              _vm.currentPage !== 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-white w-100",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.paginate(
+                                            _vm.currentPage - 1
+                                          )
+                                        }
                                       }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "Anterior\n                                        "
-                                    )
-                                  ]
-                                )
-                              : _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-outline-dark disabled w-100"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            Anterior\n                                        "
-                                    )
-                                  ]
-                                )
-                          ]),
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Anterior\n                                        "
+                                      )
+                                    ]
+                                  )
+                                : _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-dark disabled w-100"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            Anterior\n                                        "
+                                      )
+                                    ]
+                                  )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "flex-grow-1" }, [
                             _vm.currentPage !== _vm.pageTotal

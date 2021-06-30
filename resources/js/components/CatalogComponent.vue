@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="d-sm-flex d-md-none">
-                                        <div class="flex-grow-1 mr-1">
+                                        <div class="flex-grow-1" style="margin-right: .25rem!important">
                                             <button class="btn btn-white w-100" v-if="currentPage !== 1"
                                                     v-on:click="paginate(currentPage - 1)">Anterior
                                             </button>
