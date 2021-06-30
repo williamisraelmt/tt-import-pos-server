@@ -88912,12 +88912,12 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "d-sm-flex d-md-none" }, [
-                          _c("div", { staticClass: "flex-grow-1" }, [
+                          _c("div", { staticClass: "flex-grow-1 mr-1" }, [
                             _vm.currentPage !== 1
                               ? _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-white w-100 mr-1",
+                                    staticClass: "btn btn-white w-100",
                                     on: {
                                       click: function($event) {
                                         return _vm.paginate(_vm.currentPage - 1)
