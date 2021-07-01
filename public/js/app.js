@@ -88786,7 +88786,7 @@ var render = function() {
                             return _c("div", { staticClass: "col-sm-12" }, [
                               _c("div", { staticClass: "card mb-3" }, [
                                 _c("div", { staticClass: "d-flex flex-row" }, [
-                                  _c("div", [
+                                  _c("div", { staticClass: "col-4 col-md-2" }, [
                                     product.defaultPhotoUrl
                                       ? _c("a", { attrs: { href: "#" } }, [
                                           _c("img", {
@@ -88804,7 +88804,7 @@ var render = function() {
                                       : _vm._e()
                                   ]),
                                   _vm._v(" "),
-                                  _c("div", [
+                                  _c("div", { staticClass: "flex-grow-1" }, [
                                     _c("div", { staticClass: "card-body" }, [
                                       _c(
                                         "h3",

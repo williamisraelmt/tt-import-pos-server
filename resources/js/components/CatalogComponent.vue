@@ -80,14 +80,14 @@
                                     <div class="col-sm-12" v-for="product in products">
                                         <div class="card mb-3">
                                             <div class="d-flex flex-row">
-                                                <div>
+                                                <div class="col-4 col-md-2">
                                                     <a href="#" v-if="product.defaultPhotoUrl">
                                                         <img class="p-3 pr-0"
                                                              style="height:150px"
                                                              v-bind:src="`/api/catalog/photo/${product.id}/${product.defaultPhotoUrl}`"
                                                         ></a>
                                                 </div>
-                                                <div>
+                                                <div class="flex-grow-1">
                                                     <div class="card-body">
                                                         <h3 class="card-title">
                                                             <router-link
